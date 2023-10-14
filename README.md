@@ -3,3 +3,10 @@ This is a simple blog developed using PHP programming language and the architect
 
 You can see the front-end format of this project on the page below!
 [Template-project](https://github.com/pouria0015/Venus-Web-Template)
+
+---
+**NOTE**
+
+This project is unfinished
+
+---
