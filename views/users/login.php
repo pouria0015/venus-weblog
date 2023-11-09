@@ -12,7 +12,7 @@ view("inc/header");
                         <div class="mb-4">
                             <label for="email" class="form-label">*آدرس ایمیل</label>
                             <input name="email" type="text" id="email" class="form-control <?= add_class_error($data['errors']['email']); ?>" value="<?= (isset($data['requests']['email'])) ? $data['requests']['email'] : '' ?>" required>
-                            <span class="invalid-feedback"><?= view_error($data['errors']['password'] , "ایمیل خود را به صورت کاملا صحیح وارد کنید") ?></span>
+                            <span class="invalid-feedback"><?= view_error($data['errors']['email'] , "ایمیل خود را به صورت کاملا صحیح وارد کنید") ?></span>
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label">*رمز عبور</label>
