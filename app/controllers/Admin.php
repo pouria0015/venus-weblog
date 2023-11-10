@@ -10,6 +10,7 @@ class Admin extends Controller{
     private $adminModel;
 
 
+
     public function __construct()
     {
         $this->adminModel = $this->model('Admin');    
@@ -17,13 +18,7 @@ class Admin extends Controller{
 
     public function index(){
         
-        if(!Auth::isAuthenticated()){
-    
-            redirect(""); 
-    
-        }elseif((Auth::getLoggedInUser()['user_type']) !== "admin" && (Auth::getLoggedInUser()['user_type']) !== "writer"){
-                redirect("");
-        }
+        Auth::isAuthenticatedAdmin();
 
         $data['users'] = $this->adminModel->getUsers();
         
@@ -35,11 +30,75 @@ class Admin extends Controller{
     }
 
     public function addPosts(){
-        $this->view("admin/addPosts");
+        Auth::isAuthenticatedAdmin();
+
+        $this->view("admin/addPost");
     }
 
     public function editPosts($id){
-        $this->view("admin/editPosts");
+        Auth::isAuthenticatedAdmin();
+
+        $this->view("admin/editPost");
     }
+
+    public function deletePost($id){
+        Auth::isAuthenticatedAdmin();
+
+        
+    }
+
+    public function activeUser($id){
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->activeUser($id)){
+            flash('activeUser' , ' حساب کاربری فعال شد ');
+            redirect('admin/index');
+        }else{
+            flash('activeUser' , ' حساب کاربری فعال نشد(خطایی رخ داده است) ' , 'alert alert-danger');
+            redirect('admin/index');
+        }
+        
+    }
+
+    public function deleteUser($id){
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->deleteUser($id)){
+            flash('deleteUser' , ' حساب کاربر با موفقیت حذف شد ');
+            redirect('admin/index');
+        }else{
+            flash('deleteUser' , ' حساب کاربری حذف نشد(خطایی رخ داده است) ' , 'alert alert-danger');
+            redirect('admin/index');
+        }
+
+    }
+
+    public function deleteComment($id){
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->deleteComment($id)){
+            flash('deleteComment' , ' نظر مورد نظر حذف شد ');
+            redirect('admin/index');
+        }else{
+            flash('deleteComment' , ' نظر مورد نظر حذف نشد(خطایی رخ داده است) ' , 'alert alert-danger');
+            redirect('admin/index');
+        }
+    }
+
+    public function verifyComment($id){
+        Auth::isAuthenticatedAdmin();
+        
+        if($this->adminModel->verifyComment($id)){
+            flash('verifyComment' , ' نظر مورد نظر تایید شد ');
+            redirect('admin/index');
+        }else{
+            flash('verifyComment' , ' نظر مورد نظر تایید نشد(خطایی رخ داده است) ' , 'alert alert-danger');
+            redirect('admin/index');
+        }
+
+    }
+
+
+ 
 
 } 

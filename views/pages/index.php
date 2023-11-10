@@ -54,6 +54,7 @@ view("inc/header");
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php
             $count = 0;
+            if(isset($data['posts'])){
             foreach ($data['posts'] as $post) {
                 $count++;
             ?>
@@ -70,7 +71,7 @@ view("inc/header");
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php }} ?>
         </div>
     </div>
     <!-- end post`s -->

@@ -1,11 +1,16 @@
 <?php 
     view("admin/inc/header");
 ?>
-
     </header>
 
     <section class="m-5">
         <div class="container">
+            <?php
+             flash('activeUser');
+             flash('deleteUser'); 
+             flash('deleteComment'); 
+             flash('verifyComment');
+             ?>
 
             <h2>نمایش کاربران</h2>
             <table class="table  table-striped">
@@ -16,7 +21,7 @@
                         <th scope="col">نام کاربری</th>
                         <th scope="col"> ایمیل </th>
                         <th scope="col"> حذف </th>
-                        <th scope="col"> ویرایش </th>
+                        <th scope="col"> تاییدیه حساب  </th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -33,10 +38,21 @@
                         <td><?= $user->email ?></td>
                         
                         <td>
-                            <button type="button" class="btn btn-danger"> حذف </button>
+                            <a type="button" class="btn btn-danger" href="<?= url_view_builder("admin/deleteUser/$user->id") ?>"> حذف </a>
                         </td>
-                        <td>
-                            <button type="button" class="btn btn-warning"> تایید </button>
+
+                        <td> 
+                    <?php 
+                            if($user->is_active == 0){
+                        ?>
+                        <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/activeUser/$user->id"); ?>">  تایید </a>
+                        <?php
+                            }else{
+                        ?>
+                        <span class="btn btn-warning verify-user" style="cursor:default;"> تایید شده </span>
+                        <?php
+                            }
+                        ?>
                         </td>
                         </td>
                     </tr>
@@ -62,7 +78,7 @@
                         <th scope="col"> نام پست </th>
                         <th scope="col"> پیام </th>
                         <th scope="col"> حذف </th>
-                        <th scope="col"> تایید </th>
+                        <th scope="col"> تاییدیه نظر  </th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
@@ -80,10 +96,21 @@
                         <td><?= substr($comment->body , 0 , 100) ?></td>
                         
                         <td>
-                            <button type="button" class="btn btn-danger"> حذف </button>
+                            <a type="button" class="btn btn-danger" href="<?= url_view_builder("admin/deleteComment/$comment->id") ?>"> حذف </a>
                         </td>
-                        <td>
-                            <button type="button" class="btn btn-warning"> تایید </button>
+
+                        <td> 
+                    <?php 
+                            if($comment->verify_comment == 0){
+                        ?>
+                        <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/verifyComment/$comment->id"); ?>">  تایید </a>
+                        <?php
+                            }else{
+                        ?>
+                        <span class="btn btn-warning" style="cursor:default;"> تایید شده </span>
+                        <?php
+                            }
+                        ?>
                         </td>
                         </td>
                     </tr>
@@ -100,7 +127,7 @@
         <div class="container">
 
             <h2>نمایش پست ها</h2>
-            <a href="./addPosts.html" class="btn btn-primary m-1"> اضافه کردن پست </a>
+            <a href="<?= url_view_builder('admin/addPost') ?>" class="btn btn-primary m-1"> اضافه کردن پست </a>
             <table class="table table-striped">
                 <thead>
                     <tr>
