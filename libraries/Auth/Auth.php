@@ -34,6 +34,15 @@ class Auth {
         return Session::has('user') ? true : false;
     }
 
+    public static function isAuthenticatedAdmin(){
+        if(!self::isAuthenticated()){
+    
+            redirect(""); 
+    
+        }elseif((self::getLoggedInUser()['user_type']) !== "admin" && (self::getLoggedInUser()['user_type']) !== "writer"){
+                redirect("");
+        }
+    }
 
 
 }
