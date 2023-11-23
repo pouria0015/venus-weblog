@@ -10,6 +10,7 @@
              flash('deleteUser'); 
              flash('deleteComment'); 
              flash('verifyComment');
+             flash('deletePost');
              ?>
 
             <h2>نمایش کاربران</h2>
@@ -156,10 +157,10 @@
                         <td> <?= $post->writer ?> </td>
                         <td> <?= $post->published_at ?> </td>
                             <td>
-                                <button type="button" class="btn btn-warning">ویرایش</button>
+                                <a type="button" class="btn btn-warning" href="<?= url_view_builder('admin/editPosts/' . $post->id) ?>">ویرایش</a>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger">حذف</button>
+                                <a type="button" class="btn btn-danger" href="<?= url_view_builder('admin/deletePost/' . $post->id) ?>">حذف</a>
                             </td>
                         </tr>
 
