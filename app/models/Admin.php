@@ -124,7 +124,16 @@ class Admin{
     }
 
     public function deletePost($id){
+        $sql = "DELETE FROM `posts` WHERE `posts`.`id` = :id;";
+        $this->db->query($sql);
 
+        $this->db->bind(':id' , $id);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
