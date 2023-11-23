@@ -38,7 +38,7 @@ class Admin extends Controller{
     public function editPosts($id){
         Auth::isAuthenticatedAdmin();
 
-        $this->view("admin/editPost");
+        $this->view("admin/editPosts");
     }
 
     public function deletePost($id){
