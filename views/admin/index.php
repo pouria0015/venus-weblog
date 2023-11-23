@@ -152,7 +152,7 @@
                         <th scope="row"><?= $count ?></th>
                         <td><img src="<?= asset("img/$post->image") ?>" style="max-width: 50px;" alt=""></td>
                         <td> <?= $post->title ?> </td>
-                        <td> <?= substr($post->body , 0 , 100) ?> </td>
+                        <td> <?= substr($post->body , 0 , 50) ?> </td>
                         <td> <?= $post->writer ?> </td>
                         <td> <?= $post->published_at ?> </td>
                             <td>
