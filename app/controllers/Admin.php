@@ -43,7 +43,13 @@ class Admin extends Controller{
 
     public function deletePost($id){
         Auth::isAuthenticatedAdmin();
-
+        if($this->adminModel->deletePost($id)){
+            flash('deletePost' , ' پست مورد نظر حذف شد. ');
+            redirect('admin/index');
+        }else{
+            flash('deletePost' , 'پست حذف نشد.');
+            redirect('admin/index');
+        }
         
     }
 
