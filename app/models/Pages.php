@@ -29,7 +29,7 @@ class Pages{
 
     public function getCommentsByPostId($post_id){
 
-        $sql = "SELECT `comment`.`body` , `users`.`first_name` FROM `comment` JOIN `users` ON `comment`.`user_id` = `users`.`id` WHERE `comment`.`verify_comment` = 1 AND `comment`.`post_id` = :post_id;" ; 
+        $sql = "SELECT `comment`.`body` , `users`.`first_name` FROM `comment` JOIN `users` ON `comment`.`user_id` = `users`.`id` WHERE `comment`.`verify_comment` = 1 AND `comment`.`post_id` = :post_id AND `comment`.`deleted_at` IS NULL;" ; 
         $this->db->query($sql);
 
         $this->db->bind(':post_id' , $post_id);

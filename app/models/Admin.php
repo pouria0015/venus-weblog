@@ -15,7 +15,7 @@ class Admin{
 
     public function getUsers(){
 
-        $sql = "SELECT `users`.`id` , `users`.`first_name` , `users`.`user_name` , `users`.`email` , `users`.`is_active` FROM users;";
+        $sql = "SELECT `users`.`id` , `users`.`first_name` , `users`.`user_name` , `users`.`email` , `users`.`is_active` FROM users WHERE `users`.`deleted_at` IS NULL;";
         $this->db->query($sql);
         $rows = $this->db->fetchAll();
         if($this->db->rowCount() > 0)
@@ -25,7 +25,7 @@ class Admin{
 
     public function getComments(){
         
-       $sql = "SELECT `comment`.`id`,`comment`.`body` , `posts`.`title` AS `post_title`, `users`.`user_name` , `comment`.`verify_comment` FROM comment JOIN users ON `comment`.`user_id` = `users`.`id` JOIN posts ON `comment`.`post_id` = `posts`.`id`;";
+       $sql = "SELECT `comment`.`id`,`comment`.`body` , `posts`.`title` AS `post_title`, `users`.`user_name` , `comment`.`verify_comment` FROM comment JOIN users ON `comment`.`user_id` = `users`.`id` JOIN posts ON `comment`.`post_id` = `posts`.`id` WHERE `comment`.`deleted_at` IS NULL;";
         $this->db->query($sql);
         $rows = $this->db->fetchAll();
         if($this->db->rowCount() > 0)
@@ -35,7 +35,7 @@ class Admin{
 
     public function getPosts(){
         
-        $sql = "SELECT `posts`.`id` , `posts`.`title` , `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts JOIN users ON `posts`.`user_id` = `users`.`id`;";
+        $sql = "SELECT `posts`.`id` , `posts`.`title` , `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts JOIN users ON `posts`.`user_id` = `users`.`id` WHERE `posts`.`deleted_at` IS NULL;";
         $this->db->query($sql);
         $rows = $this->db->fetchAll();
 
@@ -45,7 +45,7 @@ class Admin{
     } 
 
     public function getDataPostById($id){
-        $sql = "SELECT `posts`.`id` , `posts`.`title`, `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts  JOIN users ON `posts`.`user_id` = `users`.`id` WHERE `posts`.`id` = :id;";           
+        $sql = "SELECT `posts`.`id` , `posts`.`title`, `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts  JOIN users ON `posts`.`user_id` = `users`.`id` WHERE `posts`.`id` = :id AND `posts`.`deleted_at` IS NULL;";           
         $this->db->query($sql);
 
         $this->db->bind(':id' , $id);
@@ -59,7 +59,7 @@ class Admin{
 
     public function deleteUser($id){
 
-        $sql = "DELETE FROM `users` WHERE `users`.`id` = :id;";
+        $sql = "UPDATE `users` SET `users`.`deleted_at` = NOW() , `users`.`is_active` = 0 WHERE `users`.`id` = :id;";
         $this->db->query($sql);
         $this->db->bind(':id' , $id);
         
@@ -76,7 +76,7 @@ class Admin{
         
         $this->db->query($sql);
         $this->db->bind(':id' , $id);
-        ;
+        
         if($this->db->execute()){
             return true;
         }else{
@@ -87,7 +87,7 @@ class Admin{
 
     public function deleteComment($id){
 
-        $sql =  "DELETE FROM `comment` WHERE `comment`.`id` = :id;";
+        $sql =  "UPDATE `comment` SET `comment`.`deleted_at` = NOW() , `comment`.`verify_comment` = 0 WHERE `comment`.`id` = :id;";
 
         $this->db->query($sql);
         $this->db->bind(':id' , $id);
@@ -124,7 +124,7 @@ class Admin{
     }
 
     public function deletePost($id){
-        $sql = "DELETE FROM `posts` WHERE `posts`.`id` = :id;";
+        $sql = "UPDATE `posts` SET `posts`.`deleted_at` = NOW() WHERE `posts`.`id` = :id;";
         $this->db->query($sql);
 
         $this->db->bind(':id' , $id);
