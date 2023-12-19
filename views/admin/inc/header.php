@@ -30,7 +30,7 @@
                                 <a class="nav-link <?= (empty(active_header("admin/index"))) ? active_header("admin") : active_header("admin/index") ?>" aria-current="page" href="<?= url_view_builder("admin/index"); ?>">خانه</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link <?= active_header("admin/addPosts") ?>" href="<?= url_view_builder("admin/addPosts"); ?>"> اضافه کردن پست </a>
+                                <a class="nav-link <?= active_header("admin/addPost") ?>" href="<?= url_view_builder("admin/addPosts"); ?>"> اضافه کردن پست </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="<?= url_view_builder(""); ?>"> مشاهده وبسایت </a>

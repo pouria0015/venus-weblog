@@ -29,7 +29,7 @@ class Admin extends Controller{
         $this->view("admin/index" , $data);
     }
 
-    public function addPosts(){
+    public function addPost(){
         Auth::isAuthenticatedAdmin();
 
         $this->view("admin/addPost");
