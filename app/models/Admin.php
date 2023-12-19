@@ -115,9 +115,26 @@ class Admin{
 
     }
 
-    public function addPost(){
+    public function addPost($data){
+    
+        $sql = "INSERT INTO `posts`(title , body , image , user_id , category_id) VALUES (:title , :body , :imageName , :user_id , :category_id);";
+        $this->db->query($sql);
 
-    }
+        $this->db->bindArray([
+            ':title' => $data['title'],
+            ':body' => $data['body'],
+            ':image' => $data['imageName'],
+            ':user_id' => $data['user_id'],
+            ':category_id' => $data['category_id']
+        ]);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    
+    }   
 
     public function editPost($id){
         
