@@ -119,11 +119,11 @@ class Admin{
     
         $sql = "INSERT INTO `posts`(title , body , image , user_id , category_id) VALUES (:title , :body , :imageName , :user_id , :category_id);";
         $this->db->query($sql);
-
+dd($data);
         $this->db->bindArray([
             ':title' => $data['title'],
             ':body' => $data['body'],
-            ':image' => $data['imageName'],
+            ':imageName' => $data['imagePost_name'],
             ':user_id' => $data['user_id'],
             ':category_id' => $data['category_id']
         ]);
