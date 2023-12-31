@@ -1,5 +1,6 @@
 <?php
 view("admin/inc/header");
+
 ?>
 <script src="<?= asset('js/ckeditor/ckeditor.js') ?>"></script>
 
@@ -19,13 +20,20 @@ view("admin/inc/header");
                         <div class="mb-3">
                             <label for="textPost" class="form-label"> متن پست را بنویسید </label>
                             <textarea class="form-control" id="textPost" rows="4" name="text" required></textarea>
-                        
+
                         </div>
                         <script>
-                                CKEDITOR.replace('textPost');
-                            </script>
+                            CKEDITOR.replace('textPost');
+                        </script>
                     </div>
 
+                    <div class="mb-3 mb-5">
+                    <label for="cate" class="form-label"> دسته بندی مورد نظر خود را انتخاب کنید </label>
+                    <select class="form-select" aria-label="Default select example" id="cate" name="category">
+                        <option value="1"> علمی </option>
+                    </select>
+
+ </div>
                     <div class="mb-3">
                         <label for="formFileMultiple" class="form-label"> تصویر پست </label>
                         <input class="form-control" type="file" name="image" id="formFileMultiple" multiple>
