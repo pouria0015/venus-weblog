@@ -3,17 +3,22 @@ namespace App\controllers;
 
 use Libraries\Controller\Controller;
 use Libraries\Auth\Auth;
+use Libraries\Request\Request;
+use Libraries\Validator\Validator;
 
 
 class Admin extends Controller{
 
     private $adminModel;
-
+    private $req;
+    private $validator;
 
 
     public function __construct()
     {
         $this->adminModel = $this->model('Admin');    
+        $this->req = new Request();
+        $this->validator = new Validator($this->req);
     }
 
     public function index(){
@@ -31,6 +36,45 @@ class Admin extends Controller{
 
     public function addPost(){
         Auth::isAuthenticatedAdmin();
+
+        $data['userData'] = Auth::getLoggedInUser();
+
+        if($this->req->isPostMethod()){
+            $validate = $this->validator->Validate([
+                'title' => ['required' , 'minStr:3' , 'maxStr:50'],
+                'text' => ['required' , 'minStr:200'],
+                'category' => ['required' , 'minNumberLenth:1' , 'maxNumberLenth:1000'],
+                'image:name' => ['required' , 'minStr:5' , 'maxStr:25'],
+                'image:size' => ['fileMinSize:0.5', 'fileMaxSize:100']
+            ]);
+
+            if(!$validate->hasError()){
+
+                $data_post = [
+                    'title' => $this->req->title,
+                    'body' => $this->req->text,
+                    'category_id' => $this->req->category,
+                    'user_id' => $data['userData']['id'],
+                    'imagePost_name' => isset($this->req->image['name']) ? $this->req->image['name'] : '',
+                    'imagePost_path' => isset($this->req->image['tmp_name']) ? $this->req->image['tmp_name'] : '' 
+                ];
+    dd($data_post);
+                move_uploaded_file($data_post['imagePost_path'] , APPROOT . '/public/img/posts/' . $data_post['imagePost_name']);
+    
+                if($this->adminModel->addPost($data_post) === true){
+                    flash('addPost' , ' پست با موفقیت اضافه شد. ' , 'alert alert-success');
+                }else{
+                    flash('ErrorAddPost' , ' پست اضافه نشد(مشکلی پیش آمده)! ' , 'alert aler-danger');
+                }
+    
+            }else{
+                $data['errors'] = $validate->getErrors();
+                $data['requests'] = $this->req->getAttribute(); 
+            }
+
+        }
+
+
 
         $this->view("admin/addPost");
     }
