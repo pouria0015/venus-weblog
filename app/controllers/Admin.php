@@ -58,7 +58,7 @@ class Admin extends Controller{
                     'imagePost_name' => isset($this->req->image['name']) ? $this->req->image['name'] : '',
                     'imagePost_path' => isset($this->req->image['tmp_name']) ? $this->req->image['tmp_name'] : '' 
                 ];
-    dd($data_post);
+
                 move_uploaded_file($data_post['imagePost_path'] , APPROOT . '/public/img/posts/' . $data_post['imagePost_name']);
     
                 if($this->adminModel->addPost($data_post) === true){
@@ -73,8 +73,6 @@ class Admin extends Controller{
             }
 
         }
-
-
 
         $this->view("admin/addPost");
     }
