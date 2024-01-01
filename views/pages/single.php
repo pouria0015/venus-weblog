@@ -55,7 +55,7 @@
                 <!--Section: Text-->
                 <section>
                     <p>
-                        <?= $data['posts']->body ?>    
+                        <?php echo html_entity_decode($data['posts']->body , ENT_QUOTES|ENT_HTML5|ENT_COMPAT) ?>    
                     </p>
             
                 </section>
@@ -91,12 +91,15 @@
 
                 <!--Section: Comments-->
                 <section class="border-bottom mb-3">
-                    <p class="text-center"><strong>نظرات‌‌ : <?= count($data['comments']) ?></strong></p>
+                    <p class="text-center"><strong>نظرات‌‌ : <?= isset($data['comments']) && $data['comments'] !== false ? count($data['comments']) : '' ?></strong></p>
 
                     <!-- start Comment -->
                     <?php
-                    if(count($data['comments']) > 0){
-                     foreach($data['comments'] as $comment){    
+
+                    if(isset($data['comments']) && $data['comments'] !== false){
+                        if(count($data['comments'])){
+                     foreach($data['comments'] as $comment){
+
                         ?>
                     <div class="row mb-4">
 
@@ -108,7 +111,11 @@
                         </div>
                     </div>
 
-<?php }} ?>
+<?php
+ }
+}
+}
+ ?>
                     <!-- end Comment -->
 
                 </section>
