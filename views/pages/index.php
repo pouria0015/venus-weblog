@@ -63,7 +63,7 @@ view("inc/header");
                         <img src="<?= asset("img/posts/" . $post->image) ?>" width="350" height="250" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title" id="title-post-<?= $count ?>"><?= $post->title ?></h5>
-                            <p class="card-text"> <?= substr($post->body, 0, 255) . "...." ?> </p>
+                            <p class="card-text"> <?= substr(htmlspecialchars_decode($post->body , ENT_QUOTES), 0, 255) . "...." ?> </p>
                             <a href="<?= url('pages/single/' . $post->id) ?>">ادامه مطلب</a>
                         </div>
                         <div class="card-footer">
