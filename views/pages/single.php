@@ -55,9 +55,8 @@
                 <!--Section: Text-->
                 <section>
                     <p>
-                        <?php echo html_entity_decode($data['posts']->body , ENT_QUOTES|ENT_HTML5|ENT_COMPAT) ?>    
+                        <?= htmlspecialchars_decode(html_entity_decode($data['posts']->body)) ?>  
                     </p>
-            
                 </section>
                 <!--Section: Text-->
 
