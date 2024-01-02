@@ -105,7 +105,7 @@
                         <div class="col-10">
                             <p class="mb-2"><strong><?= $comment->first_name ?></strong></p>
                             <p>
-                                <?= $comment->body ?>
+                                <?= htmlspecialchars_decode(html_entity_decode($comment->body)) ?>
                             </p>
                         </div>
                     </div>
@@ -122,13 +122,17 @@
 
                 <!--Section: Reply-->
                 <section>
+                    <?php
+                    flash('notAddComment');
+                    flash('ErrorAddComment');
+                    ?>
                     <p class="text-center"><strong>افزودن نظر</strong></p>
 
-                    <form action="<?= url_view_builder('pages/single/' . 1) ?>" method="post">
+                    <form action="<?= url_view_builder('pages/addComment/' . $data['posts']->id) ?>" method="post">
 
                         <!-- Message input -->
                         <div class="form-outline mb-4">
-                            <textarea class="form-control" id="editor" rows="4" name="comment" required></textarea>
+                            <textarea class="form-control" id="editor" rows="4" name="body" required></textarea>
                             <label class="form-label" for="form4Example3">*متن نظر</label>
                         </div>
                         <script>
@@ -137,7 +141,7 @@
         
 
                         <!-- Submit button -->
-                        <input type="submit" class="btn btn-primary btn-block mb-4" value="send">
+                        <input type="submit" class="btn btn-primary btn-block mb-4" value="ارسال نظر">
                             
                     </form>
                 </section>
