@@ -56,9 +56,9 @@ class Pages{
         }
     }
 
-    public function addComments($data){
+    public function addComment($data){
 
-        $sql = "INSERT INTO `comment`(`comment`.`body` , `comment`.`user_id` , `comments`.`post_id`) VALUES (:body , :user_id , :post_id);";
+        $sql = "INSERT INTO `comment`(`comment`.`body` , `comment`.`user_id` , `comment`.`post_id`) VALUES (:body , :user_id , :post_id);";
         $this->db->query($sql);
 
         $this->db->bindArray([
