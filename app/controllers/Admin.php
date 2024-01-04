@@ -80,7 +80,11 @@ class Admin extends Controller{
     public function editPosts($id){
         Auth::isAuthenticatedAdmin();
 
-        $this->view("admin/editPosts");
+        $data = $this->adminModel->getDataPostById($id);
+        
+
+
+        $this->view("admin/editPosts" , $data);
     }
 
     public function deletePost($id){
