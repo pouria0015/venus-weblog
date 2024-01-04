@@ -1,5 +1,9 @@
 <?php 
     view("inc/header");
+    
+    flash('notAddComment');
+    flash('ErrorAddComment');
+    
 ?>
 
 <script src="<?= asset('js/ckeditor/ckeditor.js') ?>"></script> 
@@ -122,10 +126,7 @@
 
                 <!--Section: Reply-->
                 <section>
-                    <?php
-                    flash('notAddComment');
-                    flash('ErrorAddComment');
-                    ?>
+                  
                     <p class="text-center"><strong>افزودن نظر</strong></p>
 
                     <form action="<?= url_view_builder('pages/addComment/' . $data['posts']->id) ?>" method="post">
