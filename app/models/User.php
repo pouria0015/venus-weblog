@@ -34,8 +34,8 @@ class User
 
     public function login($data)
     {
-
-        $sql = "SELECT `users`.`id` , `users`.`user_name` , `users`.`password` ,`users`.`first_name` , `users`.`email` , `users`.`profile`, `users`.`is_active`,`users`.`user_type` , `users`.`created_at` FROM `users` WHERE `users`.`email` = :email;";
+        // , `users`.`user_name` , `users`.`password` ,`users`.`first_name` , `users`.`email` , `users`.`profile`, `users`.`is_active`,`users`.`user_type` , `users`.`cooke_token` , `users`.`created_at`
+        $sql = "SELECT `users`.`id` , `users`.`password`  FROM `users` WHERE `users`.`email` = :email;";
         $this->db->query($sql);
 
         $this->db->bind(':email', $data['email']);
@@ -77,7 +77,7 @@ class User
     }
 
     public function getUserDataById($id){
-        $sql = "SELECT `users`.`id` , `users`.`user_name` ,`users`.`first_name` , `users`.`email` , `users`.`profile`, `users`.`is_active`,`users`.`user_type` , `users`.`created_at` FROM `users` WHERE `users`.`id` = :id;";
+        $sql = "SELECT `users`.`id` , `users`.`user_name` ,`users`.`first_name` , `users`.`email` , `users`.`profile`, `users`.`is_active`,`users`.`user_type` , `users`.`cooke_token` , `users`.`created_at` FROM `users` WHERE `users`.`id` = :id;";
         $this->db->query($sql);
 
         $this->db->bind(':id' , $id);
@@ -115,6 +115,41 @@ class User
         if($this->db->execute()){
             return true;
         }else{
+            return false;
+        }
+
+    }
+
+
+    public function creatCookeToken($id){
+        $sql = "UPDATE `users` SET `users`.`cooke_token` = :token WHERE `users`.`id` = :id;";
+
+        $this->db->query($sql);
+
+        $this->db->bindArray([
+            'id' => $id,
+            'token' => generateToken()
+        ]);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+    public function deleteCookeToken($id){
+
+        $sql = "UPDATE `users` SET `users`.`cooke_token` = NULL WHERE `users`.`id` = :id;";
+
+        $this->db->query($sql);
+
+        $this->db->bind('id' , $id);
+
+        if($this->db->execute()){
+            return true;
+        }else{  
             return false;
         }
 
