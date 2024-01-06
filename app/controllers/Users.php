@@ -78,14 +78,22 @@ class Users extends Controller
             ]);
             if (!$validate->hasError()) {
                 if ($this->userModel->findUserByEmail($this->req->email)) {
+                    
                     $loggedInUser = $this->userModel->login(['email' => $this->req->email, 'password' => $this->req->password]);
-
+                   
+                    if($loggedInUser){
+                        if($this->req->remember === 'ok'){
+                            $this->userModel->creatCookeToken($loggedInUser->id);
+                        }
+                        $loggedInUser = $this->userModel->getUserDataById($loggedInUser->id);
+                }else{
+                        $loggedInUser = false;
+                    }
                     if ($loggedInUser) {
-
                         if ($loggedInUser->is_active === "1") {
 
                             if (Auth::loginUser(get_object_vars($loggedInUser))) {
-                                redirect("");
+                                 redirect("");
                             } else {
                                 flash('ErrorLoggedInUser', "خطایی رخ داده است(ورود نا موفق)", "alert alert-danger");
                             }
@@ -95,6 +103,7 @@ class Users extends Controller
                             flash('ErrorLoggedInUser', " حساب کاربری شما تایید نشده است ", "alert alert-danger");
 
                         }
+                        
                     } else {
                         flash('ErrorLoggedInUser', "پسورد نادرست است", "alert alert-danger");
                     }
@@ -161,6 +170,13 @@ class Users extends Controller
 
     public function logout()
     {
+        if($this->userModel->deleteCookeToken(Auth::getIdUser())){
+            if(!Auth::removeUserCooke()){
+            redirect("users/userPanel");
+            }
+        }else{
+            redirect("users/userPanel");
+        }
         if (Auth::logoutUser()) {
             redirect("");
         } else {
