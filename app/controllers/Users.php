@@ -29,7 +29,14 @@ class Users extends Controller
     public function userPanel()
     {
         if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+            }else{
             redirect("");
+            }
+
         }
 
         $data['userData'] = Auth::getLoggedInUser();
@@ -71,6 +78,17 @@ class Users extends Controller
     public function login()
     {
 
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+            }
+
+        }elseif(Auth::isAuthenticated()){
+            redirect("");
+        }
+
         if ($this->req->isPostMethod()) {
             $validate = $this->validator->Validate([
                 'email' => ['required', 'minStr:5', 'maxStr:50', 'email'],
@@ -82,6 +100,7 @@ class Users extends Controller
                     $loggedInUser = $this->userModel->login(['email' => $this->req->email, 'password' => $this->req->password]);
                    
                     if($loggedInUser){
+
                         if($this->req->remember === 'ok'){
                             $this->userModel->creatCookeToken($loggedInUser->id);
                         }
@@ -124,6 +143,16 @@ class Users extends Controller
 
     public function register()
     {
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+            }
+
+        }elseif(Auth::isAuthenticated()){
+            redirect("");
+        }
         
         if ($this->req->isPostMethod()) {
 

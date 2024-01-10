@@ -13,6 +13,7 @@ use Libraries\Validator\Validator;
         public $isAuthenticated;
         private $pagesModel;
         private $adminModel;
+        private $userModel;
         private $req;
         private $validator;
 
@@ -20,11 +21,22 @@ use Libraries\Validator\Validator;
         {
             $this->pagesModel = $this->model('Pages');
             $this->adminModel = $this->model('Admin');
+            $this->userModel = $this->model('User');
             $this->req = new Request();
             $this->validator = new Validator($this->req);
         }
 
         public function index(){
+            if (!Auth::isAuthenticated()) {
+            
+                if(Auth::isAuthenticatedCooke()){
+                    $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                    Auth::loginUser(get_object_vars($data));
+                    redirect('');
+                }
+    
+            }
+
             $data['posts'] = $this->adminModel->getPosts();
             $data['sliders'] = $this->pagesModel->getSliders();
 
@@ -32,12 +44,35 @@ use Libraries\Validator\Validator;
         }
 
         public function about(){
+
+            if (!Auth::isAuthenticated()) {
+            
+                if(Auth::isAuthenticatedCooke()){
+                    $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                    
+                    Auth::loginUser(get_object_vars($data));
+                    redirect('');
+                }
+    
+            }
+
             $row = $this->pagesModel->getTextAbout();
 
             $this->view('pages/about' , $row);
         }
 
         public function single($id){
+
+            if (!Auth::isAuthenticated()) {
+            
+                if(Auth::isAuthenticatedCooke()){
+                    $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                    Auth::loginUser(get_object_vars($data));
+                    redirect('');
+                }
+    
+            }
+
             $data['posts'] = $this->adminModel->getDataPostById($id);
             $data['comments'] = $this->pagesModel->getCommentsByPostId($id);
 
@@ -47,6 +82,18 @@ use Libraries\Validator\Validator;
         }
 
         public function addComment($postId){
+
+            if (!Auth::isAuthenticated()) {
+            
+                if(Auth::isAuthenticatedCooke()){
+                    $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                    Auth::loginUser(get_object_vars($data));
+                    redirect('pages/single');
+                }
+                flash('InsertComment' , ' برای ثبت نظر اول باید وارد شوید ' , 'alert alert-danger');
+                redirect('pages/single');
+    
+            }
 
             if($this->req->isPostMethod()){
 
