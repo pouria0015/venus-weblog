@@ -3,6 +3,7 @@
     
     flash('notAddComment');
     flash('ErrorAddComment');
+    flash('InsertComment');
     
 ?>
 
