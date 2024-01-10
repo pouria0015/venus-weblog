@@ -51,6 +51,10 @@ class Auth {
         }
     }
 
+    public static function getDataCooke(){
+        return explode(':' , $_COOKIE['Account']);
+    }
+
     public static function removeUserCooke(){
         
         if(!empty($_COOKIE['Account']) && isset($_COOKIE['Account'])){
@@ -64,7 +68,7 @@ class Auth {
     }
 
     public static function logoutUser(){
-        return Session::forget('user') === true ? true : false; 
+        return (Session::forget('user') && self::removeUserCooke()) === true ? true : false; 
     }
 
     public static function getLoggedInUser(){
@@ -78,6 +82,14 @@ class Auth {
 
     public static function isAuthenticated(){
         return Session::has('user') ? true : false;
+    }
+
+    public static function isAuthenticatedCooke(){
+        if(!empty($_COOKIE['Account']) && isset($_COOKIE['Account'])){
+            return true; 
+        } else{
+            return false;
+        }
     }
 
     public static function isAuthenticatedAdmin(){
