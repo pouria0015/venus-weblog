@@ -20,7 +20,7 @@ view("inc/header");
                             <span class="invalid-feedback"><?= view_error($data['errors']['password'] , "رمز عبور باید بین 6 تا 25 کاراکتر باشد و وارد کردن آن اجباریست") ?></span>
                         </div>
                         <div class="mb-4 form-check">
-                            <input name="remember" type="checkbox" class="form-check-input" id="remember" value="1">
+                            <input name="remember" type="checkbox" class="form-check-input" id="remember" value="ok">
                             <label class="form-check-label" for="remember">مرا بخاطر بسپار</label>
                             <span class="invalid-feedback"></span>
                         </div>
