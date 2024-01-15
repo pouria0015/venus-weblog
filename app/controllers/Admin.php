@@ -100,8 +100,8 @@ class Admin extends Controller{
             }
 
         }
-
-        $this->view("admin/addPost");
+        $data['category'] = $this->adminModel->getCategory();
+        $this->view("admin/addPost" , $data);
     }
 
     public function editPosts($id){
