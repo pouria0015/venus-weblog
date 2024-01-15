@@ -1,10 +1,15 @@
 <?php
 view("inc/header");
+
 ?>
 
 <div class="d-flex justify-content-center">
     <div class="row row-cols-1 row-cols-md-1 g-1">
-<?php flash('update_data') ?>
+<?php
+ flash('update_data');
+ flash('deleteUser');
+
+?>
         <div class="card mx-auto m-5">
             <!-- <img src="https://fakeimg.pl/250x200/?text=slide1&font=lobster" class="card-img-top" alt="..." width="250px" height="200px"> -->
             <div class="card-body">
@@ -29,7 +34,7 @@ view("inc/header");
                     </div>
 
                     <button name="login" type="submit" class="btn btn-primary"> ویرایش اطلاعات </button>
-                    <button type="button" class="btn btn-danger m-1"> حذف حساب کاربری </button>
+                    <a class="btn btn-danger m-1" href="<?= url_view_builder((isset($data['userData']['id'])) ? "users/deleteUser/" . $data['userData']['id'] : '') ?>"> حذف حساب کاربری </a>
 
                 </form>
 
