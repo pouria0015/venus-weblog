@@ -153,4 +153,19 @@ class Admin{
         }
     }
 
+    public function addCategory($name){
+
+        $sql = "INSERT INTO `categories`(`categories`.`name`) VALUES (:name);";
+        $this->db->query($sql);
+
+        $this->db->bind(':name' , $name);
+
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
