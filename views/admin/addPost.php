@@ -28,12 +28,19 @@ view("admin/inc/header");
                     </div>
 
                     <div class="mb-3 mb-5">
-                    <label for="cate" class="form-label"> دسته بندی مورد نظر خود را انتخاب کنید </label>
-                    <select class="form-select" aria-label="Default select example" id="cate" name="category">
-                        <option value="1"> علمی </option>
-                    </select>
+                        <label for="cate" class="form-label"> دسته بندی مورد نظر خود را انتخاب کنید </label>
+                        <select class="form-select" aria-label="Default select example" id="cate" name="category">
+                            <?php
 
- </div>
+                            if (isset($data['category'])) {
+                                foreach ($data['category'] as $key => $category) {
+                            ?>
+                                    <option value="<?= $category->name ?>"> <?= $category->name ?> </option>
+                            <?php }
+                            } ?>
+                        </select>
+
+                    </div>
                     <div class="mb-3">
                         <label for="formFileMultiple" class="form-label"> تصویر پست </label>
                         <input class="form-control" type="file" name="image" id="formFileMultiple" multiple>
