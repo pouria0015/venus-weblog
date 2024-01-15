@@ -14,12 +14,14 @@ class Users extends Controller
     private $req;
     private $validator;
     private $userModel;
+    private $adminModel;
 
     public function __construct()
     {
         $this->req = new Request();
         $this->validator = new Validator($this->req);
         $this->userModel = $this->model('User');
+        $this->adminModel = $this->model('Admin');
     }
 
     public function index()
@@ -162,7 +164,7 @@ class Users extends Controller
                 'password' => ['required', 'minStr:8', 'maxStr:30', 'confirm'],
                 'email' => ['required', 'minStr:5', 'maxStr:50'],
                 'profile:name' => ['minStr:5', 'maxStr:50', 'FileSuffix:png'],
-                'profile:size' => ['fileMinSize:0.5', 'fileMaxSize:8']
+                'profile:size' => ['fileMinSize:0.5', 'fileMaxSize:9']
             ]);
 
             if ($validate->hasError()) {
@@ -211,5 +213,30 @@ class Users extends Controller
         } else {
             redirect("users/userPanel");
         }
+    }
+
+    public function deleteUser($id){
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('admin/index');
+            }else{
+            redirect("");
+            }
+
+        }
+
+        if($this->adminModel->deleteUser($id)){
+            flash('deleteUser' , ' حساب کاربر با موفقیت حذف شد ');
+            Auth::logoutUser();
+            redirect('');
+        }else{
+            flash('deleteUser' , ' حساب کاربری حذف نشد(خطایی رخ داده است) ' , 'alert alert-danger');
+            redirect('users/userPanel');
+        }
+
     }
 }
