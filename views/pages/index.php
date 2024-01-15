@@ -1,5 +1,10 @@
 <?php
 view("inc/header");
+
+echo('<div class="container">');
+flash('deleteUser');
+echo('</div>');
+
 ?>
 
 <!-- start slider  -->
