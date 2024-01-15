@@ -15,7 +15,7 @@ class Admin{
 
     public function getUsers(){
 
-        $sql = "SELECT `users`.`id` , `users`.`first_name` , `users`.`user_name` , `users`.`email` , `users`.`is_active` FROM users WHERE `users`.`deleted_at` IS NULL;";
+        $sql = "SELECT `users`.`id` , `users`.`first_name` , `users`.`user_name` , `users`.`email` , `users`.`is_active` , `users`.`deleted_at` FROM users;";
         $this->db->query($sql);
         $rows = $this->db->fetchAll();
         if($this->db->rowCount() > 0)
