@@ -11,6 +11,7 @@ view("admin/inc/header");
         flash('deleteComment');
         flash('verifyComment');
         flash('deletePost');
+        flash('accessAddCategory');
         ?>
 
         <h2>نمایش کاربران</h2>

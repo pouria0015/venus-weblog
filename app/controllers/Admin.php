@@ -26,18 +26,7 @@ class Admin extends Controller{
     }
 
     public function index(){
-        
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
 
         $data['users'] = $this->adminModel->getUsers();
@@ -51,17 +40,7 @@ class Admin extends Controller{
 
     public function addPost(){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
     
         $data['userData'] = Auth::getLoggedInUser();
@@ -106,18 +85,7 @@ class Admin extends Controller{
 
     public function editPosts($id){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
-
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
 
         $data = $this->adminModel->getDataPostById($id);
@@ -129,19 +97,9 @@ class Admin extends Controller{
 
     public function deletePost($id){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
-
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
+       
         if($this->adminModel->deletePost($id)){
             flash('deletePost' , ' پست مورد نظر حذف شد. ');
             redirect('admin/index');
@@ -154,18 +112,7 @@ class Admin extends Controller{
 
     public function activeUser($id){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
-
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
 
         if($this->adminModel->activeUser($id)){
@@ -180,18 +127,7 @@ class Admin extends Controller{
 
     public function deleteUser($id){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
-
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
 
         if($this->adminModel->deleteUser($id)){
@@ -206,18 +142,7 @@ class Admin extends Controller{
 
     public function deleteComment($id){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
-
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
 
         if($this->adminModel->deleteComment($id)){
@@ -231,18 +156,7 @@ class Admin extends Controller{
 
     public function verifyComment($id){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
-
-        }
-
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
         
         if($this->adminModel->verifyComment($id)){
@@ -256,6 +170,45 @@ class Admin extends Controller{
     }
 
 
- 
+    public function addCategory(){
+
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        Auth::isAuthenticatedAdmin();
+        
+        if($this->req->isPostMethod()){
+            
+            $validate = $this->validator->Validate([
+                'category' => ['required' , 'minStr:3' , 'maxStr:50']
+            ]);
+
+            if(!$validate->hasError()){
+
+                $data = [
+                    'categoryName' => $this->req->category
+                ];
+
+                if($this->adminModel->addCategory($data['categoryName'])){
+
+                    flash('accessAddCategory' , ' دسته بندی مورد نظر با موفقیت اضافه شد ');
+                    redirect('admin/index');
+
+                }else{
+
+                    flash('NotaccessAddCategory' , ' خطایی رخ داده است و دست بندی اضافه نشد ');
+                    redirect('admin/addcategory');
+
+                }
+
+            }else{
+
+                $data['errors'] = $validate->getErrors();
+
+            }
+
+        }
+
+        $this->view('admin/addCategory' , (isset($data)) ? $data : []);
+
+    }
 
 } 
