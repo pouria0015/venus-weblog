@@ -102,5 +102,20 @@ class Auth {
         }
     }
 
+    public static function checkAuthenticationCookeAndLogin($userModel){
+
+        if (!self::isAuthenticated()) {
+            
+            if(self::isAuthenticatedCooke()){
+                $data = $userModel->getUserDataById(self::getDataCooke()[0]);
+                self::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
+
+    }
 
 }
