@@ -27,15 +27,9 @@ use Libraries\Validator\Validator;
         }
 
         public function index(){
-            if (!Auth::isAuthenticated()) {
-            
-                if(Auth::isAuthenticatedCooke()){
-                    $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                    Auth::loginUser(get_object_vars($data));
-                    redirect('');
-                }
-    
-            }
+
+            Auth::checkAuthenticationCookeAndLogin($this->userModel);
+
 
             $data['posts'] = $this->adminModel->getPosts();
             $data['sliders'] = $this->pagesModel->getSliders();
@@ -44,6 +38,8 @@ use Libraries\Validator\Validator;
         }
 
         public function about(){
+
+            Auth::checkAuthenticationCookeAndLogin($this->userModel);
 
             if (!Auth::isAuthenticated()) {
             
@@ -62,6 +58,9 @@ use Libraries\Validator\Validator;
         }
 
         public function single($id){
+
+            Auth::checkAuthenticationCookeAndLogin($this->userModel);
+
 
             if (!Auth::isAuthenticated()) {
             

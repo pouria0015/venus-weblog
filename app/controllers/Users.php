@@ -30,16 +30,8 @@ class Users extends Controller
 
     public function userPanel()
     {
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-            }else{
-            redirect("");
-            }
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
 
-        }
 
         $data['userData'] = Auth::getLoggedInUser();
 
@@ -80,16 +72,8 @@ class Users extends Controller
     public function login()
     {
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-            }
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
 
-        }elseif(Auth::isAuthenticated()){
-            redirect("");
-        }
 
         if ($this->req->isPostMethod()) {
             $validate = $this->validator->Validate([
@@ -145,16 +129,8 @@ class Users extends Controller
 
     public function register()
     {
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-            }
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
 
-        }elseif(Auth::isAuthenticated()){
-            redirect("");
-        }
         
         if ($this->req->isPostMethod()) {
 
@@ -217,17 +193,8 @@ class Users extends Controller
 
     public function deleteUser($id){
 
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('admin/index');
-            }else{
-            redirect("");
-            }
+        Auth::checkAuthenticationCookeAndLogin($this->userModel);
 
-        }
 
         if($this->adminModel->deleteUser($id)){
             flash('deleteUser' , ' حساب کاربر با موفقیت حذف شد ');
