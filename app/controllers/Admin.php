@@ -87,10 +87,44 @@ class Admin extends Controller{
 
         Auth::checkAuthenticationCookeAndLogin($this->userModel);
         Auth::isAuthenticatedAdmin();
+    
+        if($this->req->isPostMethod()){
+          
+            
+            $validate = $this->validator->Validate([
+                'title' => ['required' , 'minStr:3' , 'maxStr:50'],
+                'body' => ['required' , 'minStr:200'],
+                'category' => ['required' , 'minNumberLenth:1' , 'maxNumberLenth:1000'],
+            ]);
 
-        $data = $this->adminModel->getDataPostById($id);
-        
+            if(!$validate->hasError()){
 
+                $data = [
+                    'id' => $id,
+                    'title' => $this->req->title,
+                    'body' => $this->req->body,
+                    'category_id' => $this->req->category
+                ];
+
+                if($this->adminModel->editPost($data)){
+                   
+                    flash('accessEditPost' , ' پست با موفقیت ویرایش شد ');
+                    redirect('admin/index');
+                }else{
+                 
+                    flash('NotAccessEditPost' , ' ویرایش پست با مشکل مواجه شد ' , 'alert alert-danger');
+                    redirect('admin/index');
+                }
+
+            }else{
+                $data['errors'] = $validate->getErrors();
+            }
+        }
+
+        $data['postData'] = $this->adminModel->getDataPostById($id);
+        $data['category'] = $this->adminModel->getCategory();
+
+    
 
         $this->view("admin/editPosts" , $data);
     }

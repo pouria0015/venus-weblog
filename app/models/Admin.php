@@ -49,7 +49,7 @@ class Admin
 
     public function getDataPostById($id)
     {
-        $sql = "SELECT `posts`.`id` , `posts`.`title`, `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts  JOIN users ON `posts`.`user_id` = `users`.`id` WHERE `posts`.`id` = :id AND `posts`.`deleted_at` IS NULL;";
+        $sql = "SELECT `posts`.`id` , `posts`.`title`, `posts`.`body` , `posts`.`image` , `posts`.`category_id` , `users`.`first_name` AS `writer` , `posts`.`published_at` , `categories`.`name` AS category_name  FROM posts  JOIN users ON `posts`.`user_id` = `users`.`id` JOIN `categories` ON `categories`.`id` = `posts`.`category_id` WHERE `posts`.`id` = :id AND `posts`.`deleted_at` IS NULL;";
         $this->db->query($sql);
 
         $this->db->bind(':id', $id);
@@ -141,8 +141,28 @@ class Admin
         }
     }
 
-    public function editPost($id)
+    public function editPost($data)
     {
+        $sql = 'UPDATE `posts` SET `posts`.`title` = :title , `posts`.`body` = :body , `posts`.`category_id` = :category_id , `posts`.`updated_at` = NOW() WHERE `posts`.`id` = :id;';
+
+        $this->db->query($sql);
+
+        $this->db->bindArray([
+            ':id' => $data['id'],
+            ':title' => $data['title'],
+            ':body' => $data['body'],
+            ':category_id' => $data['category_id']
+        ]);
+
+        if($this->db->execute()){
+
+            return true;
+
+        }else{
+
+            return false;
+        
+        }
     }
 
     public function deletePost($id)
@@ -178,7 +198,7 @@ class Admin
 
     public function getCategory()
     {
-        $sql = "SELECT `categories`.`name` FROM `categories` WHERE `categories`.`deleted_at` IS NULL;";
+        $sql = "SELECT `categories`.`id` , `categories`.`name` FROM `categories` WHERE `categories`.`deleted_at` IS NULL;";
 
         $this->db->query($sql);
 
