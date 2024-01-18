@@ -7,7 +7,7 @@ view("admin/inc/header");
 <div class="d-flex justify-content-center">
     <div class="row row-cols-1 row-cols-md-1 g-1">
 
-        <div class="card mx-auto m-5">
+        <div class="card mx-auto m-5" style="width: 40rem;">
             <div class="card-body">
                 <h5 class="card-title"> اضافه کردن پست </h5>
                 <form method="POST" action="<?= url_view_builder('admin/addPost') ?>" enctype="multipart/form-data">
@@ -35,7 +35,7 @@ view("admin/inc/header");
                             if (isset($data['category'])) {
                                 foreach ($data['category'] as $key => $category) {
                             ?>
-                                    <option value="<?= $category->name ?>"> <?= $category->name ?> </option>
+                                    <option value="<?= $category->id ?>"> <?= $category->name ?> </option>
                             <?php }
                             } ?>
                         </select>
