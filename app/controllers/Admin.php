@@ -26,7 +26,17 @@ class Admin extends Controller{
     }
 
     public function index(){
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
 
         $data['users'] = $this->adminModel->getUsers();
@@ -40,7 +50,28 @@ class Admin extends Controller{
 
     public function addPost(){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
     
         $data['userData'] = Auth::getLoggedInUser();
@@ -85,7 +116,17 @@ class Admin extends Controller{
 
     public function editPosts($id){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
     
         if($this->req->isPostMethod()){
@@ -131,7 +172,17 @@ class Admin extends Controller{
 
     public function deletePost($id){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
        
         if($this->adminModel->deletePost($id)){
@@ -146,7 +197,17 @@ class Admin extends Controller{
 
     public function activeUser($id){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
 
         if($this->adminModel->activeUser($id)){
@@ -161,7 +222,17 @@ class Admin extends Controller{
 
     public function deleteUser($id){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
 
         if($this->adminModel->deleteUser($id)){
@@ -176,7 +247,17 @@ class Admin extends Controller{
 
     public function deleteComment($id){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
 
         if($this->adminModel->deleteComment($id)){
@@ -190,7 +271,17 @@ class Admin extends Controller{
 
     public function verifyComment($id){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
         
         if($this->adminModel->verifyComment($id)){
@@ -206,7 +297,17 @@ class Admin extends Controller{
 
     public function addCategory(){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
         Auth::isAuthenticatedAdmin();
         
         if($this->req->isPostMethod()){

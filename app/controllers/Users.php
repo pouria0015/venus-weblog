@@ -30,7 +30,17 @@ class Users extends Controller
 
     public function userPanel()
     {
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
 
 
         $data['userData'] = Auth::getLoggedInUser();
@@ -72,7 +82,17 @@ class Users extends Controller
     public function login()
     {
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
 
 
         if ($this->req->isPostMethod()) {
@@ -129,7 +149,17 @@ class Users extends Controller
 
     public function register()
     {
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
 
         
         if ($this->req->isPostMethod()) {
@@ -193,7 +223,17 @@ class Users extends Controller
 
     public function deleteUser($id){
 
-        Auth::checkAuthenticationCookeAndLogin($this->userModel);
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
 
 
         if($this->adminModel->deleteUser($id)){

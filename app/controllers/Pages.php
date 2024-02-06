@@ -28,7 +28,17 @@ use Libraries\Validator\Validator;
 
         public function index(){
 
-            Auth::checkAuthenticationCookeAndLogin($this->userModel);
+            if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
 
 
             $data['posts'] = $this->adminModel->getPosts();
@@ -39,7 +49,17 @@ use Libraries\Validator\Validator;
 
         public function about(){
 
-            Auth::checkAuthenticationCookeAndLogin($this->userModel);
+            if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
 
             if (!Auth::isAuthenticated()) {
             
@@ -59,7 +79,17 @@ use Libraries\Validator\Validator;
 
         public function single($id){
 
-            Auth::checkAuthenticationCookeAndLogin($this->userModel);
+            if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }else{
+            redirect("");
+            }
+
+        }
 
 
             if (!Auth::isAuthenticated()) {
@@ -113,6 +143,7 @@ use Libraries\Validator\Validator;
                     ];
                 
                     if($this->pagesModel->addComment($data_comment) === true){
+                        flash('AddComment' , ' نظر شما با موفقیت ثبت شد و بعد از تایید نمایش داده میشود! ');
                         redirect("pages/single/$postId");
                     }else{
                         flash('notAddComment' , 'مشکلی در افزودن نظر رخ داده است' , 'alert alert-danger');
