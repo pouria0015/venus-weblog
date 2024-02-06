@@ -1,6 +1,6 @@
 <?php
 view("admin/inc/header");
-
+flash('ErrorAddPost');
 ?>
 <script src="<?= asset('js/ckeditor/ckeditor.js') ?>"></script>
 
@@ -13,14 +13,15 @@ view("admin/inc/header");
                 <form method="POST" action="<?= url_view_builder('admin/addPost') ?>" enctype="multipart/form-data">
 
                     <div class="mb-3">
-                        <label for="exampleInputUsername" class="form-label"> عنوان </label>
-                        <input name="title" type="text" class="form-control" id="exampleInputUsername" required>
+                        <label for="title" class="form-label"> عنوان </label>
+                        <input name="title" type="text" class="form-control <?= add_class_error($data['errors']['title']); ?>" id="title" required>
+                        <span class="invalid-feedback"><?= view_error($data['errors']['title'] , ' عنوان وارد شده نباید بیشتر از ۵۰ کاراکتر و کمتر از ۳ کاراکتر باشد! '); ?></span>
                     </div>
                     <div class="mb-3">
                         <div class="mb-3">
                             <label for="textPost" class="form-label"> متن پست را بنویسید </label>
-                            <textarea class="form-control" id="textPost" rows="4" name="text" required></textarea>
-
+                            <textarea class="form-control <?= add_class_error($data['errors']['text']); ?>" id="textPost" rows="4" name="text" required></textarea>
+                            <span class="invalid-feedback"><?= view_error($data['errors']['text'] , ' متن وارد شده نباید بیشتر از 3000 کاراکتر و کمتر از ۲۰۰ کاراکتر باشد! '); ?></span>
                         </div>
                         <script>
                             CKEDITOR.replace('textPost');
@@ -29,7 +30,8 @@ view("admin/inc/header");
 
                     <div class="mb-3 mb-5">
                         <label for="cate" class="form-label"> دسته بندی مورد نظر خود را انتخاب کنید </label>
-                        <select class="form-select" aria-label="Default select example" id="cate" name="category">
+                        <select class="form-select <?= add_class_error($data['errors']['category']); ?>" aria-label="Default select example" id="cate" name="category">
+                        <span class="invalid-feedback"><?= view_error($data['errors']['category'] , ' از گزینه های موجود یکی را انتخاب کنید! '); ?></span>
                             <?php
 
                             if (isset($data['category'])) {
@@ -43,7 +45,8 @@ view("admin/inc/header");
                     </div>
                     <div class="mb-3">
                         <label for="formFileMultiple" class="form-label"> تصویر پست </label>
-                        <input class="form-control" type="file" name="image" id="formFileMultiple" multiple>
+                        <input class="form-control <?= add_class_error($data['errors']['image']); ?>" type="file" name="image" id="formFileMultiple" multiple>
+                        <span class="invalid-feedback"><?= view_error($data['errors']['image'] , ' نام تصویر باید بین 5 تا 25 کاراکتر باشد و اندازه هم کمتر از 100 کیلوبایت و بیشتر از 0.5 کیلوبایت باشد! '); ?></span>                           
                     </div>
 
                     <button name="send" type="submit" class="btn btn-primary"> اضافه کردن پست </button>

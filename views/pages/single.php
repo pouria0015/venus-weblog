@@ -1,12 +1,19 @@
 <?php 
     view("inc/header");
-    
+
+?>
+
+<section class="m-5">
+    <div class="container">
+<?php
     flash('notAddComment');
     flash('ErrorAddComment');
     flash('InsertComment');
+    flash('AddComment');
     
 ?>
-
+    </div>
+</section>
 <script src="<?= asset('js/ckeditor/ckeditor.js') ?>"></script> 
 
 <!--Main Navigation-->
