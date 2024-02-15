@@ -34,11 +34,9 @@ use Libraries\Validator\Validator;
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
-        }
+            }
 
 
             $data['posts'] = $this->adminModel->getPosts();
@@ -55,22 +53,9 @@ use Libraries\Validator\Validator;
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
-
-            if (!Auth::isAuthenticated()) {
-            
-                if(Auth::isAuthenticatedCooke()){
-                    $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                    
-                    Auth::loginUser(get_object_vars($data));
-                    redirect('');
-                }
-    
-            }
 
             $row = $this->pagesModel->getTextAbout();
 
@@ -85,25 +70,13 @@ use Libraries\Validator\Validator;
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
 
-
-            if (!Auth::isAuthenticated()) {
-            
-                if(Auth::isAuthenticatedCooke()){
-                    $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                    Auth::loginUser(get_object_vars($data));
-                    redirect('');
-                }
-    
-            }
-
             $data['posts'] = $this->adminModel->getDataPostById($id);
             $data['comments'] = $this->pagesModel->getCommentsByPostId($id);
+            $data['ads'] = $this->adminModel->getAds();
 
 
             $this->view('pages/single' , $data);

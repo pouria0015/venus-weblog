@@ -36,12 +36,11 @@ class Users extends Controller
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
-
+        $data['errors'] = [];
+        $data['requests'] = [];
 
         $data['userData'] = Auth::getLoggedInUser();
 
@@ -88,13 +87,12 @@ class Users extends Controller
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
 
-
+        $data['errors'] = [];
+        $data['requests'] = [];
         if ($this->req->isPostMethod()) {
             $validate = $this->validator->Validate([
                 'email' => ['required', 'minStr:5', 'maxStr:50', 'email'],
@@ -155,13 +153,12 @@ class Users extends Controller
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
 
-        
+        $data['errors'] = [];
+        $data['requests'] = [];
         if ($this->req->isPostMethod()) {
 
             $validate = $this->validator->Validate([
@@ -229,8 +226,6 @@ class Users extends Controller
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
