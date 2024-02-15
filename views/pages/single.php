@@ -51,7 +51,7 @@
             <div class="col-md-8 mb-4">
                 <!--Section: Post data-mdb-->
                 <section class="border-bottom mb-4">
-                    <img src="<?= asset("img/posts/" . $data['posts']->image) ?>" class="img-fluid shadow-2-strong rounded-5 mb-4" alt="" width="100%" />
+                    <img src="<?= asset("img/posts/" . $data['posts']->image) ?>" class="img-fluid shadow-2-strong rounded-5 mb-4" alt="" width="100%" loading="lazy" />
 
                     <div class="row align-items-center mb-4">
                         <div class="col-lg-6 text-center text-lg-start mb-3 m-lg-0">
@@ -143,35 +143,24 @@
             <!--Grid column-->
             <div class="col-md-4 mb-4">
                 <!--Section: Sidebar-->
+
                 <section class="sticky-top" style="top: 80px;">
                     <!--Section: Ad-->
+
+                    <?php foreach($data['ads'] as $ad) { ?> 
                     <section class="text-center border-bottom pb-4 mb-4">
                         <div class="bg-image hover-overlay ripple mb-4">
-                            <img src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/about/assets/mdb5-about.webp" class="img-fluid" />
+                            <img src="<?= asset("img/Ads/" . $ad->image) ?>" class="img-fluid" loading="lazy" />
                         </div>
-                        <h5>تبلیغات وبسایت ما</h5>
+                        <h5> <?= $ad->name ?> </h5>
 
                         <p>
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-
+                            <?= $ad->text ?>
                         </p>
                     </section>
+                        <?php } ?>
+
                     <!--Section: Ad-->
-
-
-                    <section class="text-center">
-                        <div class="bg-image hover-overlay ripple mb-4">
-                            <img src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/about/assets/mdb5-about.webp" class="img-fluid" />
-                        </div>
-                        <h5 class="mb-4">تبلیغات وبسایت ما</h5>
-                        <p>
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
-
-                        </p>
-                    </section>
-
                 </section>
                 <!--Section: Sidebar-->
             </div>

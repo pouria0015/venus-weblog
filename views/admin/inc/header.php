@@ -36,6 +36,9 @@
                                 <a class="nav-link <?= active_header("admin/addCategory") ?>" href="<?= url_view_builder("admin/addCategory"); ?>"> اضافه کردن دسته بندی </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link <?= active_header("admin/addAds") ?>" href="<?= url_view_builder("admin/addAds"); ?>"> اضافه کردن تبلیغات </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="<?= url_view_builder(""); ?>"> مشاهده وبسایت </a>
                             </li>
                         </ul>

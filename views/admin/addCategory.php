@@ -18,8 +18,8 @@ view('admin/inc/header');
 
   <div class="form-group mx-sm-3 mb-2">
     <label for="cat" class="sr-only">نام دسته بندی را انتخاب کنید</label>
-    <input type="text" name="category" class="form-control <?= add_class_error($data['errors']['category']); ?>" id="cat" placeholder="دسته بندی" required>
-    <span class="invalid-feedback"><?= view_error($data['errors']['category'] , ' نام وارد شده نباید بیشتر از ۵۰ کاراکتر و کمتر از ۲ کاراکتر باشد! '); ?></span>
+    <input type="text" name="category" class="form-control <?= add_class_error($data , 'category'); ?>" id="cat" placeholder="دسته بندی" required>
+    <span class="invalid-feedback"><?= view_error($data , 'category' , ' نام وارد شده نباید بیشتر از ۵۰ کاراکتر و کمتر از ۲ کاراکتر باشد! '); ?></span>
 </div>
   <button type="submit" class="btn btn-primary mb-2">ثبت دسته بندی</button>
 </form>

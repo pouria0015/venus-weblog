@@ -11,13 +11,13 @@ view("inc/header");
                     <form method="POST" id="login-form" class="row" action="<?= url_view_builder("users/login"); ?>">
                         <div class="mb-4">
                             <label for="email" class="form-label">*آدرس ایمیل</label>
-                            <input name="email" type="text" id="email" class="form-control <?= add_class_error($data['errors']['email']); ?>" value="<?= (isset($data['requests']['email'])) ? $data['requests']['email'] : '' ?>" required>
-                            <span class="invalid-feedback"><?= view_error($data['errors']['email'] , "ایمیل خود را به صورت کاملا صحیح وارد کنید") ?></span>
+                            <input name="email" type="text" id="email" class="form-control <?= add_class_error($data , 'email'); ?>" value="<?= (isset($data['requests']['email'])) ? $data['requests']['email'] : '' ?>" required>
+                            <span class="invalid-feedback"><?= view_error($data , 'email' , "ایمیل خود را به صورت کاملا صحیح وارد کنید") ?></span>
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label">*رمز عبور</label>
-                            <input name="password" type="password" id="password" class="form-control  <?= add_class_error($data['errors']['password']); ?>" required>
-                            <span class="invalid-feedback"><?= view_error($data['errors']['password'] , "رمز عبور باید بین 6 تا 25 کاراکتر باشد و وارد کردن آن اجباریست") ?></span>
+                            <input name="password" type="password" id="password" class="form-control  <?= add_class_error($data , 'password'); ?>" required>
+                            <span class="invalid-feedback"><?= view_error($data , 'password' , "رمز عبور باید بین 6 تا 25 کاراکتر باشد و وارد کردن آن اجباریست") ?></span>
                         </div>
                         <div class="mb-4 form-check">
                             <input name="remember" type="checkbox" class="form-check-input" id="remember" value="ok">

@@ -14,6 +14,7 @@ view("admin/inc/header");
         flash('accessEditPost');
         flash('accessAddCategory');
         flash('addPost');
+        flash('addAds');
         ?>
 
         <h2>نمایش کاربران</h2>
@@ -194,6 +195,61 @@ view("admin/inc/header");
     </div>
 </section>
 
+
+<section class="m-5">
+    <div class="container">
+
+        <h2>نمایش تبلیغات</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col"> ردیف </th>
+                    <th scope="col">نام </th>
+                    <th scope="col"> متن </th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+
+                <?php
+                if (isset($data['ads'])) {
+                    $count = 0;
+                    foreach ($data['ads'] as $ads) {
+                        $count++;
+                ?>
+                        <tr>
+                            <th scope="row"><?= $count ?></th>
+                            <td><?= $ads->name ?></td>
+                            <td><?= substr($ads->text, 0, 100) ?></td>
+
+                            <td>
+                                <a type="button" class="btn btn-danger" href="<?= url_view_builder("admin/deleteAds/$ads->id") ?>"> حذف </a>
+                            </td>
+
+                            <td>
+                                <?php
+                                if ($ads->activeAds === 0) {
+                                ?>
+                                    <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/activeAds/$ads->id"); ?>"> فعال کردن </a>
+                                <?php
+                                } else {
+                                ?>
+                                    <span class="btn btn-warning" style="cursor:default;">  فعال </span>
+                                <?php
+                                }
+                                ?>
+                            </td>
+                            </td>
+                        </tr>
+
+                <?php }
+                } ?>
+
+            </tbody>
+        </table>
+
+    </div>
+</section>
 
 <?php
 view("inc/footer");

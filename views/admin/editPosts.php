@@ -17,14 +17,14 @@ view("admin/inc/header");
 
                     <div class="mb-3">
                         <label for="exampleInputUsername" class="form-label"> عنوان </label>
-                        <input name="title" type="text" class="form-control <?= add_class_error($data['errors']['title']); ?>" id="exampleInputUsername" value="<?= $data['postData']->title ?>">
-                        <span class="invalid-feedback"><?= view_error($data['errors']['title'] , ' عنوان وارد شده نباید بیشتر از ۵۰ کاراکتر و کمتر از ۳ کاراکتر باشد! '); ?></span>
+                        <input name="title" type="text" class="form-control <?= add_class_error($data , 'title'); ?>" id="exampleInputUsername" value="<?= $data['postData']->title ?>">
+                        <span class="invalid-feedback"><?= view_error($data , 'title' , ' عنوان وارد شده نباید بیشتر از ۵۰ کاراکتر و کمتر از ۳ کاراکتر باشد! '); ?></span>
                     </div>
                     <div class="mb-3">
                 
                         <div class="mb-4">
-                            <textarea class="form-control  <?= add_class_error($data['errors']['text']); ?>" id="editor1" rows="4" name="body" ><?= htmlspecialchars_decode(html_entity_decode($data['postData']->body)) ?></textarea>
-                            <span class="invalid-feedback"><?= view_error($data['errors']['text'] , ' متن وارد شده نباید بیشتر از 3000 کاراکتر و کمتر از ۲۰۰ کاراکتر باشد! '); ?></span>
+                            <textarea class="form-control  <?= add_class_error($data , 'text'); ?>" id="editor1" rows="4" name="body" ><?= htmlspecialchars_decode(html_entity_decode($data['postData']->body)) ?></textarea>
+                            <span class="invalid-feedback"><?= view_error($data , 'text' , ' متن وارد شده نباید بیشتر از 3000 کاراکتر و کمتر از ۲۰۰ کاراکتر باشد! '); ?></span>
                             <label class="form-label" for="form4Example3">متن پست را بنویسید </label>
                         </div>
                         <script>
@@ -34,7 +34,7 @@ view("admin/inc/header");
 
                     <div class="mb-3 mb-5">
                         <label for="cate" class="form-label"> دسته بندی مورد نظر خود را انتخاب کنید </label>
-                        <select class="form-select <?= add_class_error($data['errors']['category']); ?>" aria-label="Default select example" id="cate" name="category">
+                        <select class="form-select <?= add_class_error($data , 'category'); ?>" aria-label="Default select example" id="cate" name="category">
                             
                                     <option value="<?=  $data['postData']->category_id ?>"> <?= $data['postData']->category_name ?> </option>
                                     <?php
@@ -44,7 +44,7 @@ view("admin/inc/header");
                                     <option value="<?= $category->id ?>"><?= $category->name ?></option>
                                     <?php }} ?>
                         </select>
-                        <span class="invalid-feedback"><?= view_error($data['errors']['category'] , ' از گزینه های موجود یکی را انتخاب کنید! '); ?></span>
+                        <span class="invalid-feedback"><?= view_error($data , 'category' , ' از گزینه های موجود یکی را انتخاب کنید! '); ?></span>
                     </div>
 
                     <button name="edit" type="submit" class="btn btn-primary"> ویرایش پست </button>
