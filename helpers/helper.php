@@ -13,9 +13,11 @@ function dd($arr , $exit = 0)
 }
 
 
-function add_class_error($err)
+function add_class_error($errData , $key)
 {
-    if (isset($err) && $err === true) {
+    
+    if (isset($errData['errors'][$key]) && $errData['errors'][$key] === true) {
+
         return 'is-invalid';
     } else {
         return '';
@@ -30,9 +32,9 @@ function add_class($class){
     }
 }
 
-function view_error($err, $msg)
+function view_error($errData , $key, $msg)
 {
-    if (isset($err) && $err === true) {
+    if (isset($errData['errors'][$key]) && $errData['errors'][$key] === true) {
         return $msg;
     } else {
         return false;
