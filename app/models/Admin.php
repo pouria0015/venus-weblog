@@ -17,7 +17,7 @@ class Admin
     public function getUsers()
     {
 
-        $sql = "SELECT `users`.`id` , `users`.`first_name` , `users`.`user_name` , `users`.`email` , `users`.`is_active` , `users`.`deleted_at` FROM users;";
+        $sql = "SELECT `users`.`id` , `users`.`first_name` , `users`.`user_name` , `users`.`email` , `users`.`is_active` , `users`.`deleted_at` FROM users ORDER BY `users`.`id` DESC;";
         $this->db->query($sql);
         $rows = $this->db->fetchAll();
         if ($this->db->rowCount() > 0)
@@ -27,7 +27,7 @@ class Admin
     public function getComments()
     {
 
-        $sql = "SELECT `comment`.`id`,`comment`.`body` , `posts`.`title` AS `post_title`, `users`.`user_name` , `comment`.`verify_comment` FROM comment JOIN users ON `comment`.`user_id` = `users`.`id` JOIN posts ON `comment`.`post_id` = `posts`.`id` WHERE `comment`.`deleted_at` IS NULL;";
+        $sql = "SELECT `comment`.`id`,`comment`.`body` , `posts`.`title` AS `post_title`, `users`.`user_name` , `comment`.`verify_comment` FROM comment JOIN users ON `comment`.`user_id` = `users`.`id` JOIN posts ON `comment`.`post_id` = `posts`.`id` WHERE `comment`.`deleted_at` IS NULL ORDER BY `comment`.`id` DESC;";
         $this->db->query($sql);
         $rows = $this->db->fetchAll();
         if ($this->db->rowCount() > 0)
@@ -37,7 +37,7 @@ class Admin
     public function getPosts()
     {
 
-        $sql = "SELECT `posts`.`id` , `posts`.`title` , `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts JOIN users ON `posts`.`user_id` = `users`.`id` WHERE `posts`.`deleted_at` IS NULL;";
+        $sql = "SELECT `posts`.`id` , `posts`.`title` , `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts JOIN users ON `posts`.`user_id` = `users`.`id` WHERE `posts`.`deleted_at` IS NULL ORDER BY `posts`.`id` DESC;";
         $this->db->query($sql);
         $rows = $this->db->fetchAll();
 
@@ -198,7 +198,7 @@ class Admin
 
     public function getCategory()
     {
-        $sql = "SELECT `categories`.`id` , `categories`.`name` FROM `categories` WHERE `categories`.`deleted_at` IS NULL;";
+        $sql = "SELECT `categories`.`id` , `categories`.`name` FROM `categories` WHERE `categories`.`deleted_at` IS NULL ORDER BY `categories`.`id` DESC;";
 
         $this->db->query($sql);
 
@@ -209,5 +209,37 @@ class Admin
         } else {
             return false;
         }
+    }
+
+    public function addAds($data){
+        $sql = "INSERT INTO ads(`ads`.`name` , `ads`.`text` , `ads`.`image`) VALUES(:name , :text , :image);";
+
+        $this->db->query($sql);
+
+        $this->db->bindArray([
+            ':name' => $data['name'],
+            ':text' => $data['text'],
+            ':image' => $data['imageAds_name']
+        ]);
+        if ($this->db->execute()) {
+            return true; 
+        } else {
+            return false;
+        }
+    }
+
+    public function getAds(){
+
+        $sql = "SELECT `ads`.`id` , `ads`.`name` , `ads`.`text` , `ads`.`image` , `ads`.`activeAds` , `ads`.`deleted_at` FROM `ads` WHERE `ads`.`deleted_at` IS NULL ORDER BY `ads`.`id` DESC;";
+        $this->db->query($sql);
+
+        $rows = $this->db->fetchAll();
+
+        if($this->db->rowCount() > 0){
+            return $rows;
+        }else{
+            return false;
+        }
+
     }
 }
