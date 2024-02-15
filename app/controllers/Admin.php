@@ -32,8 +32,6 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
@@ -44,6 +42,7 @@ class Admin extends Controller{
         $data['comments'] = $this->adminModel->getComments();
 
         $data['posts'] = $this->adminModel->getPosts();
+        $data['ads'] = $this->adminModel->getAds();
 
         $this->view("admin/index" , $data);
     }
@@ -56,24 +55,13 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
-        if (!Auth::isAuthenticated()) {
-            
-            if(Auth::isAuthenticatedCooke()){
-                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
-                Auth::loginUser(get_object_vars($data));
-                redirect('');
-            }else{
-            redirect("");
-            }
 
-        }
         Auth::isAuthenticatedAdmin();
-    
+        $data['errors'] = [];
+        $data['requests'] = [];
         $data['userData'] = Auth::getLoggedInUser();
 
         if($this->req->isPostMethod()){
@@ -100,6 +88,7 @@ class Admin extends Controller{
     
                 if($this->adminModel->addPost($data_post) === true){
                     flash('addPost' , ' پست با موفقیت اضافه شد. ' , 'alert alert-success');
+                    redirect("admin/index");
                 }else{
                     flash('ErrorAddPost' , ' پست اضافه نشد(مشکلی پیش آمده)! ' , 'alert aler-danger');
                 }
@@ -122,13 +111,14 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
         Auth::isAuthenticatedAdmin();
     
+        $data['errors'] = [];
+        $data['requests'] = [];
+
         if($this->req->isPostMethod()){
           
             
@@ -178,8 +168,6 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
@@ -203,8 +191,6 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
@@ -228,8 +214,6 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
@@ -253,12 +237,12 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
         Auth::isAuthenticatedAdmin();
+
+
 
         if($this->adminModel->deleteComment($id)){
             flash('deleteComment' , ' نظر مورد نظر حذف شد ');
@@ -277,13 +261,12 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
         Auth::isAuthenticatedAdmin();
         
+
         if($this->adminModel->verifyComment($id)){
             flash('verifyComment' , ' نظر مورد نظر تایید شد ');
             redirect('admin/index');
@@ -303,13 +286,14 @@ class Admin extends Controller{
                 $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
                 Auth::loginUser(get_object_vars($data));
                 redirect('');
-            }else{
-            redirect("");
             }
 
         }
         Auth::isAuthenticatedAdmin();
         
+        $data['errors'] = [];
+        $data['requests'] = [];
+
         if($this->req->isPostMethod()){
             
             $validate = $this->validator->Validate([
@@ -343,6 +327,60 @@ class Admin extends Controller{
         }
 
         $this->view('admin/addCategory' , (isset($data)) ? $data : []);
+
+    }
+
+    public function addAds(){
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+        $data['errors'] = [];
+        $data['requests'] = [];
+        
+        dd($this->req->getAttribute);
+        if($this->req->isPostMethod()){
+            $validate = $this->validator->Validate([
+                'name' => ['required' , 'minStr:3' , 'maxStr:50'],
+                'text' => ['required' , 'minStr:10' , 'maxStr:100'],
+                'image:name' => ['required' , 'minStr:5' , 'maxStr:25'],
+                'image:size' => ['fileMinSize:0.5', 'fileMaxSize:1024']
+            ]);
+            
+
+            if(!$validate->hasError()){
+
+                $data_Ads = [
+                    'name' => $this->req->name,
+                    'text' => $this->req->text,
+                    'imageAds_name' => isset($this->req->image['name']) ? $this->req->image['name'] : '',
+                    'imageAds_path' => isset($this->req->image['tmp_name']) ? $this->req->image['tmp_name'] : '' 
+                ];
+                
+                move_uploaded_file($data_Ads['imageAds_path'] , APPROOT . '/public/img/Ads/' . $data_Ads['imageAds_name']);
+    
+                if($this->adminModel->addAds($data_Ads) === true){
+                    flash('addAds' , ' تبلیغ با موفقیت اضافه شد. ' , 'alert alert-success');
+                    redirect("admin/index");
+                }else{
+                    flash('ErrorAddAds' , ' تبلیغ اضافه نشد(مشکلی پیش آمده)! ' , 'alert aler-danger');
+                }
+    
+            }else{
+                $data['errors'] = $validate->getErrors();
+                $data['requests'] = $this->req->getAttribute(); 
+            }
+
+        }
+
+        $this->view('admin/addAds' , (isset($data)) ? $data : []);
 
     }
 
