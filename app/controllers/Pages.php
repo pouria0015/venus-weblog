@@ -76,7 +76,7 @@ use Libraries\Validator\Validator;
 
             $data['posts'] = $this->adminModel->getDataPostById($id);
             $data['comments'] = $this->pagesModel->getCommentsByPostId($id);
-            $data['ads'] = $this->adminModel->getAds();
+            $data['ads'] = $this->pagesModel->getAds();
 
 
             $this->view('pages/single' , $data);
@@ -132,5 +132,7 @@ use Libraries\Validator\Validator;
             }
     }
 
+
+    
 
 }
