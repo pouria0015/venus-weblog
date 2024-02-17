@@ -242,4 +242,47 @@ class Admin
         }
 
     }
+
+    public function activeAds($id){
+
+        $sql = "UPDATE `ads` SET `ads`.`activeAds` = 1 WHERE `ads`.`id` = :id;";
+        $this->db->query($sql);
+        $this->db->bind(':id' , $id);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+
+    public function inactiveAds($id){
+
+        $sql = "UPDATE `ads` SET `ads`.`activeAds` = 0 WHERE `ads`.`id` = :id;";
+        $this->db->query($sql);
+        $this->db->bind(':id' , $id);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
+    public function deleteAds($id){
+
+        $sql = "UPDATE `ads` SET `ads`.`deleted_at` = NOW() WHERE `ads`.`id` = :id;";
+        $this->db->query($sql);
+        $this->db->bind(':id' , $id);
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return true;
+        }
+
+    }
 }
