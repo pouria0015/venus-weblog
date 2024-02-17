@@ -18,19 +18,19 @@ view("inc/header");
                 <form method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">آدرس ایمیل</label>
-                        <input name="email" type="email" id="email" class="form-control <?= add_class_error($data['errors']['email']); ?>" value="<?= (isset($data['userData']['email'])) ? $data['userData']['email'] : '' ?>" required>
-                        <span class="invalid-feedback"><?= view_error($data['errors']['email'], "ایمیل خود را به صورت کاملا صحیح وارد کنید و ایمیل باید بین 5 تا 50 ککاراکتر باشد") ?></span>
+                        <input name="email" type="email" id="email" class="form-control <?= add_class_error($data['errors'] , 'email'); ?>" value="<?= (isset($data['userData']['email'])) ? $data['userData']['email'] : '' ?>" required>
+                        <span class="invalid-feedback"><?= view_error($data['errors'] , 'email' , "ایمیل خود را به صورت کاملا صحیح وارد کنید و ایمیل باید بین 5 تا 50 ککاراکتر باشد") ?></span>
                     </div>
                     <div class="mb-3">
                         <label for="user_name" class="form-label"> نام کاربری </label>
-                        <input name="user_name" type="text" id="user_name" class="form-control <?= add_class_error($data['errors']['user_name']); ?>" value="<?= (isset($data['userData']['user_name'])) ? $data['userData']['user_name'] : '' ?>" required>
-                        <span class="invalid-feedback"><?= view_error($data['errors']['user_name'], " نام کاربری باید بین 4 تا 50 کاراکتر باشد ") ?></span>
+                        <input name="user_name" type="text" id="user_name" class="form-control <?= add_class_error($data['errors'] , 'user_name'); ?>" value="<?= (isset($data['userData']['user_name'])) ? $data['userData']['user_name'] : '' ?>" required>
+                        <span class="invalid-feedback"><?= view_error($data['errors'] , 'user_name', " نام کاربری باید بین 4 تا 50 کاراکتر باشد ") ?></span>
                     </div>
 
                     <div class="mb-4">
                         <label for="first_name" class="form-label"> نام </label>
-                        <input name="first_name" type="text" id="first_name" class="form-control <?= add_class_error($data['errors']['first_name']); ?>" value="<?= (isset($data['userData']['first_name'])) ? $data['userData']['first_name'] : '' ?>" required>
-                        <span class="invalid-feedback"><?= view_error($data['errors']['first_name'], " نام خود را به درستی وارد کنید نام باید  بین 3 تا15 کاراکتر باشد ") ?></span>
+                        <input name="first_name" type="text" id="first_name" class="form-control <?= add_class_error($data['errors'], 'first_name'); ?>" value="<?= (isset($data['userData']['first_name'])) ? $data['userData']['first_name'] : '' ?>" required>
+                        <span class="invalid-feedback"><?= view_error($data['errors'] , 'first_name', " نام خود را به درستی وارد کنید نام باید  بین 3 تا15 کاراکتر باشد ") ?></span>
                     </div>
 
                     <button name="login" type="submit" class="btn btn-primary"> ویرایش اطلاعات </button>
