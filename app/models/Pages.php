@@ -74,4 +74,19 @@ class Pages{
         }
     }
 
+    public function getAds(){
+
+        $sql = "SELECT `ads`.`id` , `ads`.`name` , `ads`.`text` , `ads`.`image` , `ads`.`activeAds` , `ads`.`deleted_at` FROM `ads` WHERE `ads`.`deleted_at` IS NULL AND `ads`.`activeAds` != 0 ORDER BY `ads`.`created_at` DESC;";
+        $this->db->query($sql);
+
+        $rows = $this->db->fetchAll();
+
+        if($this->db->rowCount() > 0){
+            return $rows;
+        }else{
+            return false;
+        }
+
+    }
+
 }
