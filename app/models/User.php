@@ -77,7 +77,7 @@ class User
     }
 
     public function getUserDataById($id){
-        $sql = "SELECT `users`.`id` , `users`.`user_name` ,`users`.`first_name` , `users`.`email` , `users`.`profile`, `users`.`is_active`,`users`.`user_type` , `users`.`cooke_token` , `users`.`created_at` FROM `users` WHERE `users`.`id` = :id;";
+        $sql = "SELECT `users`.`id` , `users`.`user_name` ,`users`.`first_name` , `users`.`email` , `users`.`profile`, `users`.`is_active`,`users`.`user_type` , `users`.`cookie_token` , `users`.`created_at` FROM `users` WHERE `users`.`id` = :id;";
         $this->db->query($sql);
 
         $this->db->bind(':id' , $id);
@@ -122,7 +122,7 @@ class User
 
 
     public function creatCookeToken($id){
-        $sql = "UPDATE `users` SET `users`.`cooke_token` = :token WHERE `users`.`id` = :id;";
+        $sql = "UPDATE `users` SET `users`.`cookie_token` = :token WHERE `users`.`id` = :id;";
 
         $this->db->query($sql);
 
@@ -141,7 +141,7 @@ class User
 
     public function deleteCookeToken($id){
 
-        $sql = "UPDATE `users` SET `users`.`cooke_token` = NULL WHERE `users`.`id` = :id;";
+        $sql = "UPDATE `users` SET `users`.`cookie_token` = NULL WHERE `users`.`id` = :id;";
 
         $this->db->query($sql);
 
