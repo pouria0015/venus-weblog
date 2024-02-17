@@ -15,6 +15,10 @@ view("admin/inc/header");
         flash('accessAddCategory');
         flash('addPost');
         flash('addAds');
+        flash('activeAds');
+        flash('inactiveAds');
+        flash('DeleteAds');
+        flash('NotDeleteAds');
         ?>
 
         <h2>نمایش کاربران</h2>
@@ -124,6 +128,7 @@ view("admin/inc/header");
 
                             <td>
                                 <?php
+
                                 if ($comment->verify_comment == 0) {
                                 ?>
                                     <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/verifyComment/$comment->id"); ?>"> تایید </a>
@@ -204,9 +209,10 @@ view("admin/inc/header");
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col"> ردیف </th>
                     <th scope="col">نام </th>
                     <th scope="col"> متن </th>
+                    <th scope="col"> حذف </th>
+                    <th scope="col"> فعال/غیرفعال </th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -228,13 +234,13 @@ view("admin/inc/header");
 
                             <td>
                                 <?php
-                                if ($ads->activeAds === 0) {
+                                if ($ads->activeAds == 0) {                                
                                 ?>
                                     <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/activeAds/$ads->id"); ?>"> فعال کردن </a>
                                 <?php
                                 } else {
                                 ?>
-                                    <span class="btn btn-warning" style="cursor:default;">  فعال </span>
+                                    <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/inactiveAds/$ads->id"); ?>"> غیرفعال کردن </a>
                                 <?php
                                 }
                                 ?>
