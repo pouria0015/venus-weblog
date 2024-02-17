@@ -384,4 +384,75 @@ class Admin extends Controller{
 
     }
 
+
+    public function activeAds($id){
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->activeAds($id)){
+            flash('activeAds' , " تبلیغ با موفقیت فعال شد ");
+            redirect("admin/index");
+        }else{
+            flash('NotActiveAds' , " مشکلی پیش امده است و تبلیغ فعال نشد " , 'alert alert-danger');
+            redirect("admin/index");
+        }
+
+    }
+
+
+    public function inactiveAds($id){
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->inactiveAds($id)){
+            flash('inactiveAds' , " تبلیغ با موفقیت غیرفعال شد ");
+            redirect("admin/index");
+        }else{
+            flash('NotInActiveAds' , " مشکلی پیش امده است و تبلیغ غیرفعال نشد " , 'alert alert-danger');
+            redirect("admin/index");
+        }
+
+    }
+
+    public function deleteAds($id){
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->deleteAds($id)){
+            flash('DeleteAds' , " تبلیغ با موفقیت حذف شد ");
+            redirect("admin/index");
+        }else{
+            flash('NotDeleteAds' , " مشکلی پیش امده است و تبلیغ حذف نشد " , 'alert alert-danger');
+            redirect("admin/index");
+        }
+
+    }
+
 } 
