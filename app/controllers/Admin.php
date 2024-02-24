@@ -43,6 +43,7 @@ class Admin extends Controller{
 
         $data['posts'] = $this->adminModel->getPosts();
         $data['ads'] = $this->adminModel->getAds();
+        $data['sliders'] = $this->adminModel->getSliders();
 
         $this->view("admin/index" , $data);
     }
@@ -454,5 +455,27 @@ class Admin extends Controller{
         }
 
     }
+
+    public function addSlider(){
+
+    $this->view('admin/addSlider');
+
+    }
+
+    public function activeSlider($id){
+
+
+
+    }
+
+    public function inactiveSlider($id){
+    
+    }
+
+    public function deleteSlider($id){
+    
+    }
+
+
 
 } 

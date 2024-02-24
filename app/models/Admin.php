@@ -285,4 +285,40 @@ class Admin
         }
 
     }
+
+    public function getSliders(){
+   
+        $sql = "SELECT `sliders`.`id` , `sliders`.`name` , `sliders`.`nameImage` , `sliders`.`activeSlider`   FROM `sliders` ORDER BY `sliders`.`id` DESC";
+        $this->db->query($sql);
+        $this->db->fetch();
+        $sliders = $this->db->fetchAll();
+        
+        if($this->db->rowCount() > 0){
+            return $sliders;
+        }else{
+            return false;
+        }
+   
+   
+    }
+
+    public function addSlider(){
+
+
+
+    }
+    public function activeSlider($id){
+
+
+
+    }
+
+    public function inactiveSlider($id){
+    
+    }
+
+    public function deleteSlider($id){
+    
+    }
+
 }
