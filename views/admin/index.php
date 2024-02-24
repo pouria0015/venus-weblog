@@ -257,6 +257,62 @@ view("admin/inc/header");
     </div>
 </section>
 
+
+<section class="m-5">
+    <div class="container">
+
+        <h2>نمایش اسلاید ها</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">نام</th>
+                    <th scope="col">تصویر</th>
+                    <th scope="col"> حذف </th>
+                    <th scope="col"> فعال/غیرفعال </th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+
+                <?php
+                if (isset($data['sliders'])) {
+                    $count = 0;
+                    foreach ($data['sliders'] as $slider) {
+                        $count++;
+                ?>
+                        <tr>
+                            <th scope="row"><?= $count ?></th>
+                            <th scope="row"><?= $slider->name ?></th>
+                            <td><img src="<?= asset("img/sliders/$slider->nameImage") ?>" style="max-width: 190px;" alt="<?= $slider->name ?>"></td>
+                            <td>
+                                <a type="button" class="btn btn-danger" href="<?= url_view_builder("admin/deleteSlider/$slider->id") ?>"> حذف </a>
+                            </td>
+
+                            <td>
+                                <?php
+                                if ($slider->activeSlider == 0) {                                
+                                ?>
+                                    <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/activeSlider/$slider->id"); ?>"> فعال کردن </a>
+                                <?php
+                                } else {
+                                ?>
+                                    <a type="button" class="btn btn-warning" href="<?= url_view_builder("admin/inactiveSlider/$slider->id"); ?>"> غیرفعال کردن </a>
+                                <?php
+                                }
+                                ?>
+                            </td>
+                            </td>
+                        </tr>
+
+                <?php }
+                } ?>
+
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
 <?php
 view("inc/footer");
 ?>
