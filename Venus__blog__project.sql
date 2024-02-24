@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 15, 2024 at 05:49 PM
--- Server version: 10.5.21-MariaDB-0+deb11u1
--- PHP Version: 7.4.33
+-- Generation Time: Feb 24, 2024 at 03:45 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Venusـblogـproject`
+-- Database: `test`
 --
 
 -- --------------------------------------------------------
@@ -207,7 +207,7 @@ CREATE TABLE `users` (
   `verify_token` varchar(255) DEFAULT NULL,
   `verify_token_expire` bigint(20) DEFAULT NULL,
   `csrf_token` varchar(255) DEFAULT NULL,
-  `cooke_token` varchar(255) DEFAULT NULL,
+  `cookie_token` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -217,8 +217,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `first_name`, `user_name`, `profile`, `password`, `is_active`, `user_type`, `verify_token`, `verify_token_expire`, `csrf_token`, `cooke_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'root@gmail.com', 'root', 'root', 'post3.png', '$2y$10$HstLXmCeUp8zi/pYknOTFOSfysRFnD/j/NyYnUQO7bYpzMXZDw7Iy', 1, 'admin', '06de5973f5fa1bba9dc31cc421d46bff6d5a00036984c0ecaa8b7f646beef120', 1699614335, NULL, '379d0a3d186256906b65412908dfd9fc0745e1adeae0cd6968051f7fde585e3c', '2023-11-10 13:35:35', NULL, NULL),
+INSERT INTO `users` (`id`, `email`, `first_name`, `user_name`, `profile`, `password`, `is_active`, `user_type`, `verify_token`, `verify_token_expire`, `csrf_token`, `cookie_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'root@gmail.com', 'root', 'root', 'post3.png', '$2y$10$HstLXmCeUp8zi/pYknOTFOSfysRFnD/j/NyYnUQO7bYpzMXZDw7Iy', 1, 'admin', '06de5973f5fa1bba9dc31cc421d46bff6d5a00036984c0ecaa8b7f646beef120', 1699614335, NULL, 'ddc44bc5b546818f3e3cea7d3acf7b065047b763653ed62e6407dd9f61e2fae1', '2023-11-10 13:35:35', NULL, NULL),
 (2, 'pouria@gmail.com', 'pouria', 'pouria12', 'post1.png', '$2y$10$vsCXE5z3cFceNYKYOYPc1ufcrmWzJYgyGWuezxyrAwMt.NJtGMyLW', 1, 'public', '888833e3c8d7d1694a3ef6ececeff80975d4c1736ab9af6b80ebb524f2b6f903', 1699614268, NULL, NULL, '2023-11-10 13:34:28', NULL, NULL),
 (3, 'amin12@gmail.com', 'amin', 'amin15', 'post1.png', '$2y$10$DouPzI0HQ9n.2puZeqN.4e2aKo4VNAOe2Lq481jBulCB7LdrgWYbi', 1, 'public', '49443f1a0690e105b95e0230e31c85c0303197b866f680ccf04d3020033fe3c4', 1699614415, NULL, NULL, '2023-11-10 13:36:55', NULL, NULL),
 (8, 'ali12@gmail.com', 'ali', 'ali12', 'phone.png', '$2y$10$Fwin.C07Xk3QbTy2MYbVhuqINkueI1RZSSOqoh3Xb46CAPm.UDuEi', 0, 'public', '10fb87b658363a8e7c7678969b42075f7d955eb575da24df6683c59010946e4a', 1705336568, NULL, NULL, '2024-01-15 19:06:08', NULL, '2024-01-15 19:28:13');
