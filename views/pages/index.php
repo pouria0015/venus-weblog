@@ -24,16 +24,17 @@ echo('</div>');
     </div>
     <div class="carousel-inner">
         <?php
+
         if (count($data['sliders']) > 0) {
             foreach ($data['sliders'] as $slider) {
-
+                if($slider->active == 1) {
         ?>
-                <div class="carousel-item <?= ($slider->active == 1) ? add_class('active') : ''; ?>">
-                    <img src="<?= asset("img/sliders/" . $slider->images) ?>" class="w-100">
+                <div class="carousel-item">
+                    <img src="<?= asset("img/sliders/" . $slider->nameImage) ?>" class="w-100">
                 </div>
 
         <?php
-
+            }
             }
         }
         ?>
