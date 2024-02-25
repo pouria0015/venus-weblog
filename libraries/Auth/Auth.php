@@ -19,8 +19,9 @@ class Auth {
         $status = false;
         if(Session::set('user' , $user)){
             $status = true;
-            if(isset($user['cooke_token']) && !empty($user['cooke_token']) && !is_null($user['cooke_token'])){
-                
+            
+            if(isset($user['cookie_token']) && !is_null($user['cookie_token']) && $user['cookie_token'] != "" && $user['cookie_token'] != 0){
+       
                 self::setUserCooke($user);
                 
                 $status = true;
@@ -40,7 +41,7 @@ class Auth {
                                             'user_id' => $data['id'] ,
                                             'user_name' => $data['user_name'] ,
                                             'user_email' => $data['email'],
-                                            'cooke_token' => $data['cooke_token']
+                                            'cookie_token' => $data['cookie_token']
                                         ]);
                                 
         setcookie('Account' , $userDataString ,time() + 3600 * 24 ,"/" , "" , false , true);
