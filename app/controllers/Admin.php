@@ -464,16 +464,74 @@ class Admin extends Controller{
 
     public function activeSlider($id){
 
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->activeSlider($id)){
+            flash("ActiveSlider" , " اسلایدر با موفقیت فعال شد ");
+            redirect("admin/index");
+        }else{
+            flash("NotActiveSlider" , " اسلایدر فعال نشد " , "alert danger-alert");
+            redirect("admin/index");
+        }
 
 
     }
 
     public function inactiveSlider($id){
-    
-    }
+        
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->inactiveSlider($id)){
+            flash("InactiveSlider" , " اسلایدر با موفقیت غیر فعال شد ");
+            redirect("admin/index");
+        }else{
+            flash("NotInactiveSlider" , " اسلایدر غیرفعال نشد " , "alert danger-alert");
+            redirect("admin/index");
+        }
+
+    }   
 
     public function deleteSlider($id){
     
+
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+
+        if($this->adminModel->deleteSlider($id)){
+            flash("DeleteSlider" , " اسلایدر با موفقیت حذف شد ");
+            redirect("admin/index");
+        }else{
+            flash("NotDeleteSlider" , " اسلایدر حذف نشد " , "alert danger-alert");
+            redirect("admin/index");
+        }
+
     }
 
 
