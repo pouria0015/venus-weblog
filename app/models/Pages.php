@@ -45,14 +45,14 @@ class Pages{
 
     public function getSliders(){
 
-        $sql = "SELECT `slider`.`images` , `slider`.`active` FROM `slider` WHERE `slider`.`status` = 1;";
+        $sql = "SELECT `sliders`.`nameImage` FROM `sliders` WHERE `sliders`.`activeSlider` = 1 AND `sliders`.`deleted_at` IS NULL;";
         $this->db->query($sql);
         $sliders = $this->db->fetchAll();
 
         if($this->db->rowCount() > 0){
             return $sliders;
         }else{
-            return false;
+            return [];
         }
     }
 
