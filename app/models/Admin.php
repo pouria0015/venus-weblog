@@ -288,7 +288,7 @@ class Admin
 
     public function getSliders(){
    
-        $sql = "SELECT `sliders`.`id` , `sliders`.`name` , `sliders`.`nameImage` , `sliders`.`activeSlider`   FROM `sliders` ORDER BY `sliders`.`id` DESC";
+        $sql = "SELECT `sliders`.`id` , `sliders`.`name` , `sliders`.`nameImage` , `sliders`.`activeSlider`   FROM `sliders` WHERE `sliders`.`deleted_at` IS NULL ORDER BY `sliders`.`id` DESC";
         $this->db->query($sql);
         $this->db->fetch();
         $sliders = $this->db->fetchAll();
@@ -304,21 +304,56 @@ class Admin
 
     public function addSlider(){
 
+        $sql = "INSERT INTO `sliders` (`sliders`.`name` , `sliders`.`nameImage`) VALUES(:name , :nameImage);";
+        $this->db->query($sql);
 
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
 
     }
     public function activeSlider($id){
 
+        $sql = "UPDATE `sliders` SET `sliders`.`activeSlider` = 1 WHERE `sliders`.`id` = :id;";
+        $this->db->query($sql);
+        $this->db->bind(':id' , $id);
 
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
 
     }
 
     public function inactiveSlider($id){
+        $sql = "UPDATE `sliders` SET `sliders`.`activeSlider` = 0 WHERE `sliders`.`id` = :id;";
+        $this->db->query($sql);
+        $this->db->bind(':id' , $id);
+        
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+
+        }
     
     }
 
     public function deleteSlider($id){
-    
+        $sql = "UPDATE `sliders` SET `sliders`.`deleted_at` = NOW() , `sliders`.`activeSlider` = 0  WHERE `sliders`.`id` = :id;";
+        $this->db->query($sql);
+        $this->db->bind(':id' , $id);
+
+
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
