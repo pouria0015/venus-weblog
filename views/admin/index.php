@@ -19,6 +19,12 @@ view("admin/inc/header");
         flash('inactiveAds');
         flash('DeleteAds');
         flash('NotDeleteAds');
+        flash('ActiveSlider');
+        flash('NotActiveSlider');
+        flash('InactiveSlider');
+        flash('NotInactiveSlider');
+        flash('DeleteSlider');
+        flash('NotDeleteSlider');
         ?>
 
         <h2>نمایش کاربران</h2>
@@ -277,6 +283,7 @@ view("admin/inc/header");
                 <?php
                 if (isset($data['sliders'])) {
                     $count = 0;
+                       
                     foreach ($data['sliders'] as $slider) {
                         $count++;
                 ?>
