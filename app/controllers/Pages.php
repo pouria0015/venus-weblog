@@ -36,10 +36,10 @@ use Libraries\Validator\Validator;
                 redirect('');
             }
 
-            }
-
-
-            $data['posts'] = $this->adminModel->getPosts();
+            }  
+            
+            $data['test'] = $this->adminModel->getNumberRows('posts')->count;
+            $data['posts'] = $this->adminModel->postPagination(6 , $this->adminModel->getNumberRows('posts')->count);
             $data['sliders'] = $this->pagesModel->getSliders();
 
             $this->view('pages/index' , $data);
