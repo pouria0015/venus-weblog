@@ -346,8 +346,7 @@ class Admin extends Controller{
         $data['errors'] = [];
         $data['requests'] = [];
         
-        dd($this->req->getAttribute);
-        if($this->req->isPostMethod()){
+         if($this->req->isPostMethod()){
             $validate = $this->validator->Validate([
                 'name' => ['required' , 'minStr:3' , 'maxStr:50'],
                 'text' => ['required' , 'minStr:10' , 'maxStr:100'],
@@ -458,7 +457,54 @@ class Admin extends Controller{
 
     public function addSlider(){
 
-    $this->view('admin/addSlider');
+        if (!Auth::isAuthenticated()) {
+            
+            if(Auth::isAuthenticatedCooke()){
+                $data = $this->userModel->getUserDataById(Auth::getDataCooke()[0]);
+                Auth::loginUser(get_object_vars($data));
+                redirect('');
+            }
+
+        }
+        Auth::isAuthenticatedAdmin();
+
+        $data['requests'] = [];
+        $data['errors'] = [];        
+        
+        if($this->req->isPostMethod()){
+
+            $validate = $this->validator->Validate([
+                'name' => ['required' , 'minStr:3' , 'maxStr:250'],
+                'image:name' => ['required' ,'minStr:4' , 'maxStr:250'],
+                'image:size' => ['fileMinSize:0.5' , 'fileMaxSize:5000000']
+            ]);
+
+            if(!$validate->hasError()){
+
+                $dataSlider = [
+                    'name' => $this->req->name,
+                    'image_name' => $this->req->image['name'],
+                    'image_path' => $this->req->image['tmp_name']
+                ];
+                move_uploaded_file($dataSlider['image_path'] , APPROOT . '/public/img/sliders/' . $dataSlider['image_name']);
+
+                if($this->adminModel->addSlider($dataSlider) === true){
+                    flash('addSlider' , ' اسلایدر با موفقیت اضافه شد ');
+                    redirect('admin/index');
+                }else{
+                    flash('NotAddSlider' , ' اسلایدر اضافه نشد ' , 'alert alert-success');
+                }
+            }else{
+                $data['errors'] = $validate->getErrors();
+                $data['requests'] = $this->req->getAttribute(); 
+           
+            }
+
+        }
+
+
+
+        $this->view('admin/addSlider' , $data);
 
     }
 
