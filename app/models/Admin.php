@@ -47,6 +47,42 @@ class Admin
             return false;
     }
 
+    public function getNumberRows($table){
+        $sql = "SELECT COUNT(`id`) As count FROM `{$table}` WHERE `deleted_at` IS NULL;";
+        $this->db->query($sql);
+        $row = $this->db->fetch();
+    
+        if ($this->db->rowCount() > 0){
+            return $row;
+        } else {
+            return false;
+        }
+    }
+
+    public function postPagination($limit , $total_rows){
+
+        if (!isset ($_GET['page']) ) {
+            $page_number = 1;  
+        } else {  
+            $page_number = $_GET['page'];  
+        }  
+        $total_rows = (int)$total_rows;
+        $initial_page = ($page_number-1) * $limit; 
+        $total_pages = ceil($total_rows / $limit);  
+        
+        $sql = "SELECT `posts`.`id` , `posts`.`title` , `posts`.`body` , `posts`.`image` , `users`.`first_name` AS `writer` , `posts`.`published_at` FROM posts JOIN users ON `posts`.`user_id` = `users`.`id` WHERE `posts`.`deleted_at` IS NULL ORDER BY `posts`.`created_at` DESC LIMIT {$initial_page} , {$limit};";
+        $this->db->query($sql);
+    
+        $rows = $this->db->fetchAll();
+
+        if($this->db->rowCount() > 0){
+            return [$rows , $total_pages];
+        }else{
+            false;
+        }
+        
+    }    
+
     public function getDataPostById($id)
     {
         $sql = "SELECT `posts`.`id` , `posts`.`title`, `posts`.`body` , `posts`.`image` , `posts`.`category_id` , `users`.`first_name` AS `writer` , `posts`.`published_at` , `categories`.`name` AS category_name  FROM posts  JOIN users ON `posts`.`user_id` = `users`.`id` JOIN `categories` ON `categories`.`id` = `posts`.`category_id` WHERE `posts`.`id` = :id AND `posts`.`deleted_at` IS NULL;";
