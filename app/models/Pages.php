@@ -45,7 +45,7 @@ class Pages{
 
     public function getSliders(){
 
-        $sql = "SELECT `sliders`.`nameImage` FROM `sliders` WHERE `sliders`.`activeSlider` = 1 AND `sliders`.`deleted_at` IS NULL;";
+        $sql = "SELECT `sliders`.`nameImage` , `sliders`.`activeSlider` FROM `sliders` WHERE `sliders`.`activeSlider` = 1 AND `sliders`.`deleted_at` IS NULL;";
         $this->db->query($sql);
         $sliders = $this->db->fetchAll();
 
