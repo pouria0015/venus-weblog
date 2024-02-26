@@ -45,8 +45,8 @@ function url_view_builder($src)
 
 function active_header($rout)
 {
-    $queryString = $_SERVER['QUERY_STRING'];
-    $urlParam = 'url=';
+    $queryString = $_SERVER['REDIRECT_URL'];
+    $urlParam = '/venus-blog-project/public/';
     if (empty($queryString)) {
         $urlParam = '';
     }
@@ -57,3 +57,18 @@ function active_header($rout)
         return (isset($rout) && $queryString == $rout) ? 'active' : '';
     }
 }
+
+// function active_header($rout)
+// {
+//     $queryString = $_SERVER['QUERY_STRING'];
+//     $urlParam = 'url=';
+//     if (empty($queryString)) {
+//         $urlParam = '';
+//     }
+
+//     if (substr($queryString, 0, strlen($urlParam)) === $urlParam) {
+
+//         $queryString = substr($queryString, strlen($urlParam));
+//         return (isset($rout) && $queryString == $rout) ? 'active' : '';
+//     }
+// }
