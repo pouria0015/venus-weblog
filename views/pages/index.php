@@ -16,7 +16,7 @@ echo('</div>');
     for ($i=0; $i < count($data['sliders']); $i++) { 
        
             ?>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $i ?>" class="<?= ($data['sliders'][$i]->active == 1) ? add_class('active') : ''; ?>" aria-current="true"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $i ?>" class="<?= ($data['sliders'][$i]->activeSlider == 1) ? add_class('active') : ''; ?>" aria-current="true"></button>
             <?php
    
     }
@@ -27,9 +27,9 @@ echo('</div>');
 
         if (count($data['sliders']) > 0) {
             foreach ($data['sliders'] as $slider) {
-                if($slider->active == 1) {
+                if($slider->activeSlider == 1) {
         ?>
-                <div class="carousel-item">
+                <div class="carousel-item active">
                     <img src="<?= asset("img/sliders/" . $slider->nameImage) ?>" class="w-100">
                 </div>
 
