@@ -1,9 +1,14 @@
 <?php
+
+if(isset($_GET['page']) != true || !is_int((int)$_GET['page'])){
+    redirect('pages/index' , ['page' => 1]);
+}
+
 view("inc/header");
 
 echo('<div class="container">');
 flash('deleteUser');
-echo('</div>');
+echo('</div>');  
 
 ?>
 
@@ -60,8 +65,8 @@ echo('</div>');
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <?php
             $count = 0;
-            if(isset($data['posts'])){
-            foreach ($data['posts'] as $post) {
+            if(isset($data['posts'][0])){
+            foreach ($data['posts'][0] as $post) {
                 $count++;
             ?>
                 <div class="col">
@@ -83,6 +88,24 @@ echo('</div>');
     <!-- end post`s -->
 
 </section>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item <?= ((int)$_GET['page'] == 1) ? add_class('disabled') : '' ?>">
+      <a class="page-link" href="<?= url_view_builder('pages/index?page=' . (int)$_GET['page'] - 1) ?>">صفحه قبل</a>
+    </li>
+    <?php
+        for($i = 1 ; $i <= (int)$data['posts'][1] ; $i++){
+    ?>
+    <li class="page-item"><a class="page-link" href="<?= url_view_builder('pages/index?page=' . $i); ?>"><?= $i ?></a></li>
+    <?php
+        }
+    ?>
+    <li class="page-item <?= ((int)$_GET['page'] == (int)$data['posts'][1]) ? add_class('disabled') : '' ?>">
+      <a class="page-link" href="<?= url_view_builder('pages/index?page=' . (int)$_GET['page'] + 1) ?>">صفحه بعد</a>
+    </li>
+  </ul>
+</nav>
 
 <?php
 view("inc/footer");
