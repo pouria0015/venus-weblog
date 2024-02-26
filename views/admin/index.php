@@ -25,6 +25,7 @@ view("admin/inc/header");
         flash('NotInactiveSlider');
         flash('DeleteSlider');
         flash('NotDeleteSlider');
+        flash('addSlider');
         ?>
 
         <h2>نمایش کاربران</h2>
