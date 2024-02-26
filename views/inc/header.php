@@ -1,7 +1,3 @@
-<?php
-
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +27,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link <?= (empty(active_header(""))) ? active_header("pages/index") : active_header("") ?>" aria-current="page" href="<?= url_view_builder(""); ?>">خانه</a>
+                                <a class="nav-link <?= (empty(active_header(""))) ? active_header("pages/index") : active_header("") ?>" aria-current="page" href="<?= url_view_builder("pages/index?page=1"); ?>">خانه</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link <?= active_header("pages/about"); ?>" href="<?= url_view_builder("pages/about"); ?>">درباره ما</a>
