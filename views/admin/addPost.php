@@ -14,13 +14,13 @@ flash('ErrorAddPost');
 
                     <div class="mb-3">
                         <label for="title" class="form-label"> عنوان </label>
-                        <input name="title" type="text" class="form-control <?= add_class_error($data , 'title'); ?>" id="title" required>
+                        <input name="title" type="text" class="form-control <?= add_class_error($data , 'title'); ?>" id="title" value="<?= isset($data['requests']['title']) ? $data['requests']['title'] : '' ?>" required>
                         <span class="invalid-feedback"><?= view_error($data, 'title' , ' عنوان وارد شده نباید بیشتر از ۵۰ کاراکتر و کمتر از ۳ کاراکتر باشد! '); ?></span>
                     </div>
                     <div class="mb-3">
                         <div class="mb-3">
                             <label for="textPost" class="form-label"> متن پست را بنویسید </label>
-                            <textarea class="form-control <?= add_class_error($data , 'text'); ?>" id="textPost" rows="4" name="text" required></textarea>
+                            <textarea class="form-control <?= add_class_error($data , 'text'); ?>" id="textPost" rows="4" name="text" value="<?= isset($data['requests']['text']) ? $data['requests']['text'] : '' ?>" required></textarea>
                             <span class="invalid-feedback"><?= view_error($data , 'text' , ' متن وارد شده نباید بیشتر از 3000 کاراکتر و کمتر از ۲۰۰ کاراکتر باشد! '); ?></span>
                         </div>
                         <script>
