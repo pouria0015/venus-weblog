@@ -302,10 +302,14 @@ class Admin
    
     }
 
-    public function addSlider(){
+    public function addSlider($data){
 
         $sql = "INSERT INTO `sliders` (`sliders`.`name` , `sliders`.`nameImage`) VALUES(:name , :nameImage);";
         $this->db->query($sql);
+        $this->db->bindArray([
+            ':name' => $data['name'],
+            ':nameImage' => $data['image_name'] 
+        ]);
 
         if($this->db->execute()){
             return true;
