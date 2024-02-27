@@ -61,10 +61,11 @@
 
                             <?php } ?>
                         </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" id="search" type="search" placeholder="دنبال چی میگردی؟" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">جستجو</button>
-                        
+                        <form class="d-flex search" role="search">
+                            
+                        <input class="form-control me-2" id="search" type="search" placeholder="دنبال چی میگردی؟" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">جستجو</button>
+
                         </form>
                     </div>
                 </div>
