@@ -62,7 +62,7 @@ echo('</div>');
     <h4 class="p-5">-مقالات وبلاگ ونوس</h4>
 
     <div class="container">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4 main_content">
             <?php
             $count = 0;
             if(isset($data['posts'][0])){
