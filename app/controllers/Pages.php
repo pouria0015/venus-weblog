@@ -38,8 +38,7 @@ use Libraries\Validator\Validator;
 
             }  
             
-            $data['test'] = $this->adminModel->getNumberRows('posts')->count;
-            $data['posts'] = $this->adminModel->postPagination(6 , $this->adminModel->getNumberRows('posts')->count);
+           $data['posts'] = $this->adminModel->postPagination(6 , $this->adminModel->getNumberRows('posts')->count);
             $data['sliders'] = $this->pagesModel->getSliders();
 
             $this->view('pages/index' , $data);
