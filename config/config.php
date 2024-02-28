@@ -11,3 +11,6 @@
     define('URLROOT' , 'http://localhost/venus-blog-project/');
     // Site Name
     define('SITENAME' , 'وبلاگ ونوس');
+
+    //secret key for jwt token
+    define('SECRET_KEY' , 's3cr3t_k3y');
