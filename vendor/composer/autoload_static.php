@@ -6,10 +6,18 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitc91d3727cac0ad07d27ddbb22a6a1cc2
 {
+    public static $files = array (
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'L' => 
         array (
             'Libraries\\' => 10,
+        ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
         ),
         'A' => 
         array (
@@ -21,6 +29,10 @@ class ComposerStaticInitc91d3727cac0ad07d27ddbb22a6a1cc2
         'Libraries\\' => 
         array (
             0 => __DIR__ . '/../..' . '/libraries',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'App\\' => 
         array (
