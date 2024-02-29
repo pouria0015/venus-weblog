@@ -6,6 +6,8 @@ use Libraries\Auth\Auth;
 use Libraries\Controller\Controller;
 use Libraries\Request\Request;
 use Libraries\Validator\Validator;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 
     class Pages extends Controller{
