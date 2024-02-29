@@ -187,11 +187,16 @@ class Users extends Controller
                 ];
 
                 move_uploaded_file($data_user['profile_path'], APPROOT . '/public/img/profiles/' . $data_user['profile']);
-                
-                if ($this->userModel->insertUser($data_user) === true) {
+                $insertUser = $this->userModel->insertUser($data_user);
+
+                if (isset($insertUser['status']) && $insertUser['status'] === true) {
+                    sendMail(['email' => 'to@receiver.com', 'name' => $data_user['first_name'], 'subject' => 'فعال سازی حساب کاربری', 'body' => 'این ایمیل جهت فعال سازی حساب کاربری شماست لطفا بر روی لینک زیر کلیک کرده تا به صفحه مورد نظر منتقل شوید و دقت کنید که این ایمیل تا ۵ دقیقه بعد از ارسال اعتبار دارد  <br> <a href="http://localhost/venus-blog-project/users/verifyAccount?token=' . $insertUser['verify_token'] . '">Active account</a>', 'altBody' => 'This is the plain text message body']);
                     redirect('users/login');
+
                 }elseif($this->userModel->insertUser($data_user) == "exists"){
                     flash('ErrorRegisterInUser', " مشکلی پیش آمده یا کاربری از قبل با این ایمیل ایجاد شده است ", "alert alert-danger");
+                }else{
+                    flash('ErrorRegisterInUser', " مشکلی پیش آمده  است ", "alert alert-danger");
                 }
             }
         }
