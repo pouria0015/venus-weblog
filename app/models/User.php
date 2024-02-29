@@ -113,7 +113,7 @@ class User
         $this->db->bindArray($bind);
 
         if($this->db->execute()){
-            return true;
+            return ['status' => true , 'verify_token' => $bind[':verify_token']];
         }else{
             return false;
         }
