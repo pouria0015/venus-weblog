@@ -64,7 +64,7 @@ class Auth {
         return self::getDataJwt();
     }
 
-    public function getDataJwt(){
+    public static function getDataJwt(){
         
         $token = JWT::decode($_COOKIE['Account'] , new Key(SECRET_KEY, 'HS256'));
 
@@ -74,7 +74,6 @@ class Auth {
             $token->iat > time() ||
             $token->exp < time()
         ) {
-
             return false;
 
         }else{
@@ -145,10 +144,10 @@ class Auth {
             'cookie_token' => $data['cookie_token']
         ]);
         $token = [
-            'iss' => 'URLROOT',
-            'aud' => 'URLROOT',
+            'iss' => URLROOT,
+            'aud' => URLROOT,
             "iat" => time(),
-            "exp" => time() + (60 * 60 * 24 * 7),
+            "exp" => time() + (3600 * 24),
             "data" => $userDataString
         ];
 
