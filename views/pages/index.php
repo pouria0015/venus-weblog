@@ -8,6 +8,9 @@ view("inc/header");
 
 echo('<div class="container">');
 flash('deleteUser');
+flash('invalidTokenVerifyAccount');
+flash('VerifyTokenAccount');
+flash('NotVerifyTokenAccount');
 echo('</div>');  
 
 ?>
