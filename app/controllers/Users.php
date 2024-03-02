@@ -255,7 +255,27 @@ class Users extends Controller
 
     public function verifyAccount(){
        
-       
+        if($this->req->isGetMethod()){
+            if(isset($this->req->getAttribute()['token']) && isset($this->req->getAttribute()['email'])){
+                
+                if($this->userModel->checkVerifyToken($this->req->token , $this->req->email)){
+                  
+                    flash('VerifyTokenAccount' , " حساب کاربری شما با موفقیت تایید و فعال شد ");
+                    redirect('');
+
+                }else{
+
+                    flash('NotVerifyTokenAccount' , "  مشکلی پیش امده ممکن است زمان اعتبار توکن شما به پایان رسیده باشد یا ایمیل معتبر نباشد  با پشتیبانی تماس حاصل کنید" , "alert alert-danger");
+                    redirect('');
+                }
+            
+            }else{
+            
+                flash("invalidTokenVerifyAccount" , " توکن اعتبارسنجی نا معتبر است " , "alert alert-danger");
+                redirect('');
+            
+            }
+        }
 
     }
 }
