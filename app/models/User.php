@@ -90,6 +90,23 @@ class User
         }
     }
 
+
+    public function getUserDataByEmail($email){
+        $sql = "SELECT `users`.`id` , `users`.`user_name` ,`users`.`first_name` , `users`.`email` , `users`.`profile`, `users`.`is_active`,`users`.`user_type` , `users`.`cookie_token` , `users`.`verify_token` , `users`.`verify_token_expire` , `users`.`created_at` , `users`.`csrf_token` FROM `users` WHERE `users`.`email` = :email;";
+        $this->db->query($sql);
+
+        $this->db->bind(':email' , $email);
+
+        $row = $this->db->fetch();
+        if($this->db->rowCount() > 0){
+            return $row;
+        }else{
+            return false;
+        }
+    }
+
+
+
     public function insertUser($data_user){
         date_default_timezone_set('Asia/Tehran');
         if($this->findUserByEmail($data_user['email'])){
