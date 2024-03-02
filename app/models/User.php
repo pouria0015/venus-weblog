@@ -105,7 +105,32 @@ class User
         }
     }
 
+    public function checkVerifyToken($token , $email){
+        
+        if($userData = $this->getUserDataByEmail($email)){
+            
+            if($userData->verify_token === $token && $userData->verify_token_expire > time()){
+                
+                $sql = "UPDATE `users` SET `users`.`is_active` = 1 WHERE `users`.`id` = :id;";
 
+                $this->db->query($sql);
+                $this->db->bind(':id', $userData->id);
+        
+                if ($this->db->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }else{
+                return false;
+            }
+
+        }else{
+            return false;
+        }
+
+    }
 
     public function insertUser($data_user){
         date_default_timezone_set('Asia/Tehran');
