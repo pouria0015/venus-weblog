@@ -190,7 +190,12 @@ class Users extends Controller
                 $insertUser = $this->userModel->insertUser($data_user);
 
                 if (isset($insertUser['status']) && $insertUser['status'] === true) {
-                    sendMail(['email' => 'to@receiver.com', 'name' => $data_user['first_name'], 'subject' => 'فعال سازی حساب کاربری', 'body' => 'این ایمیل جهت فعال سازی حساب کاربری شماست لطفا بر روی لینک زیر کلیک کرده تا به صفحه مورد نظر منتقل شوید و دقت کنید که این ایمیل تا ۵ دقیقه بعد از ارسال اعتبار دارد  <br> <a href="http://localhost/venus-blog-project/users/verifyAccount?token=' . $insertUser['verify_token'] . '">Active account</a>', 'altBody' => 'This is the plain text message body']);
+                    $url = url('users/verifyAccount' , ['token' => $insertUser['verify_token'] , 'email' => $data_user['email']]);
+                    sendMail(['email' => 'to@receiver.com',
+                     'name' => $data_user['first_name'],
+                      'subject' => 'فعال سازی حساب کاربری',
+                       'body' => 'این ایمیل جهت فعال سازی حساب کاربری شماست لطفا بر روی لینک زیر کلیک کرده تا به صفحه مورد نظر منتقل شوید و دقت کنید که این ایمیل تا ۵ دقیقه بعد از ارسال اعتبار دارد  <br> <a href="' . $url . '">Active account</a>',
+                        'altBody' => 'This is the plain text message body']);
                     redirect('users/login');
 
                 }elseif($this->userModel->insertUser($data_user) == "exists"){
@@ -244,6 +249,13 @@ class Users extends Controller
             flash('deleteUser' , ' حساب کاربری حذف نشد(خطایی رخ داده است) ' , 'alert alert-danger');
             redirect('users/userPanel');
         }
+
+    }
+
+
+    public function verifyAccount(){
+       
+       
 
     }
 }
