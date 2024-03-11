@@ -71,7 +71,8 @@ class Admin extends Controller{
                 'text' => ['required' , 'minStr:200'],
                 'category' => ['required' , 'minNumberLenth:1' , 'maxNumberLenth:1000'],
                 'image:name' => ['required' , 'minStr:5' , 'maxStr:25'],
-                'image:size' => ['fileMinSize:0.5', 'fileMaxSize:100']
+                'image:size' => ['fileMinSize:0.5', 'fileMaxSize:100'],
+                'csrf_token' => ['chackCsrfToken']
             ]);
 
             if(!$validate->hasError()){
@@ -127,6 +128,8 @@ class Admin extends Controller{
                 'title' => ['required' , 'minStr:3' , 'maxStr:50'],
                 'body' => ['required' , 'minStr:200'],
                 'category' => ['required' , 'minNumberLenth:1' , 'maxNumberLenth:1000'],
+                'csrf_token' => ['chackCsrfToken']
+           
             ]);
 
             if(!$validate->hasError()){
@@ -298,7 +301,9 @@ class Admin extends Controller{
         if($this->req->isPostMethod()){
             
             $validate = $this->validator->Validate([
-                'category' => ['required' , 'minStr:3' , 'maxStr:50']
+                'category' => ['required' , 'minStr:3' , 'maxStr:50'],
+                'csrf_token' => ['chackCsrfToken']
+
             ]);
 
             if(!$validate->hasError()){
@@ -351,7 +356,8 @@ class Admin extends Controller{
                 'name' => ['required' , 'minStr:3' , 'maxStr:50'],
                 'text' => ['required' , 'minStr:10' , 'maxStr:100'],
                 'image:name' => ['required' , 'minStr:5' , 'maxStr:25'],
-                'image:size' => ['fileMinSize:0.5', 'fileMaxSize:1024']
+                'image:size' => ['fileMinSize:0.5', 'fileMaxSize:1024'],
+                'csrf_token' => ['chackCsrfToken']
             ]);
             
 
@@ -476,7 +482,8 @@ class Admin extends Controller{
             $validate = $this->validator->Validate([
                 'name' => ['required' , 'minStr:3' , 'maxStr:250'],
                 'image:name' => ['required' ,'minStr:4' , 'maxStr:250'],
-                'image:size' => ['fileMinSize:0.5' , 'fileMaxSize:5000000']
+                'image:size' => ['fileMinSize:0.5' , 'fileMaxSize:5000000'],
+                'csrf_token' => ['chackCsrfToken']
             ]);
 
             if(!$validate->hasError()){

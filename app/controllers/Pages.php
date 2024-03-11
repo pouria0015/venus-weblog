@@ -100,7 +100,8 @@ class Pages extends Controller
         if ($this->req->isPostMethod()) {
 
             $validate = $this->validator->Validate([
-                'body' => ['required', 'minStr:3', 'maxStr:240']
+                'body' => ['required', 'minStr:3', 'maxStr:240'],
+                'csrf_token' => ['chackCsrfToken']
             ]);
 
             if (!$validate->hasError()) {

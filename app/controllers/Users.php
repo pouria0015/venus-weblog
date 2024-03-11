@@ -49,6 +49,7 @@ class Users extends Controller
                 'email' => ['required', 'minStr:5', 'maxStr:50', 'email'],
                 'user_name' => ['required', 'minStr:4', 'maxStr:50'],
                 'first_name' => ['required', 'minStr:3', 'maxStr:15'],
+                'csrf_token' => ['chackCsrfToken']
             ]);
 
             if (!$validate->hasError()) {
@@ -97,6 +98,7 @@ class Users extends Controller
             $validate = $this->validator->Validate([
                 'email' => ['required', 'minStr:5', 'maxStr:50', 'email'],
                 'password' => ['required', 'minStr:6', 'maxStr:25'],
+                'csrf_token' => ['chackCsrfToken']
             ]);
             if (!$validate->hasError()) {
                 if ($this->userModel->findUserByEmail($this->req->email)) {
@@ -147,6 +149,8 @@ class Users extends Controller
 
     public function register()
     {
+
+        
         if (!Auth::isAuthenticated()) {
             
             if(Auth::isAuthenticatedCooke()){
@@ -160,6 +164,7 @@ class Users extends Controller
         $data['errors'] = [];
         $data['requests'] = [];
         if ($this->req->isPostMethod()) {
+        
 
             $validate = $this->validator->Validate([
                 'first_name' => ['required', 'minStr:3', 'maxStr:25'],
@@ -167,7 +172,8 @@ class Users extends Controller
                 'password' => ['required', 'minStr:8', 'maxStr:30', 'confirm'],
                 'email' => ['required', 'minStr:5', 'maxStr:50'],
                 'profile:name' => ['minStr:5', 'maxStr:50', 'FileSuffix:png'],
-                'profile:size' => ['fileMinSize:0.5', 'fileMaxSize:9']
+                'profile:size' => ['fileMinSize:0.5', 'fileMaxSize:9'],
+                'csrf_token' => ['chackCsrfToken']
             ]);
 
             if ($validate->hasError()) {
