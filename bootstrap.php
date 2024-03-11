@@ -10,3 +10,4 @@ require_once("../helpers/flash_helper.php");
 require_once("../helpers/helper.php");
 require_once("../helpers/session_helper.php");
 require_once("../helpers/mail_helper.php");
+require_once("../helpers/csrf_helper.php");
