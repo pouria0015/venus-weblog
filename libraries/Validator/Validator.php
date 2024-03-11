@@ -326,4 +326,16 @@ class Validator
         $f_base = floor($base);
         return round(pow(1024, $base - floor($base)), 1);
     }
+
+    function chackCsrfToken($csrf_token){
+
+        $token = getCsrfToken();
+        if($token == $csrf_token){
+            deleteCsrfToken();
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }
