@@ -46,6 +46,7 @@ view("admin/inc/header");
                         </select>
                         <span class="invalid-feedback"><?= view_error($data , 'category' , ' از گزینه های موجود یکی را انتخاب کنید! '); ?></span>
                     </div>
+                    <input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
 
                     <button name="edit" type="submit" class="btn btn-primary"> ویرایش پست </button>
                 </form>

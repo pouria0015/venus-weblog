@@ -24,6 +24,8 @@ view("inc/header");
                             <label class="form-check-label" for="remember">مرا بخاطر بسپار</label>
                             <span class="invalid-feedback"></span>
                         </div>
+                    <input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
+
                         <button type="submit" class="btn btn-primary">ورود</button>
                     </form>
                 </div>

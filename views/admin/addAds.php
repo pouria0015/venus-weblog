@@ -35,6 +35,7 @@ view('admin/inc/header');
     <input class="form-control <?= add_class_error($data, 'image'); ?>" type="file" name="image" id="formFileMultiple" multiple required>
     <span class="invalid-feedback"><?= view_error($data, 'image' , ' نام تصویر باید بین 5 تا 25 کاراکتر باشد و اندازه هم کمتر از 1 مگابایت و بیشتر از 0.5 کیلوبایت باشد! '); ?></span>                           
 </div>
+<input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
 
 
   <button type="submit" class="btn btn-primary mb-2">ثبت تبلیغ</button>

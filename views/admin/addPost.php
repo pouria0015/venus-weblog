@@ -48,6 +48,7 @@ flash('ErrorAddPost');
                         <input class="form-control <?= add_class_error($data , 'image'); ?>" type="file" name="image" id="formFileMultiple" multiple>
                         <span class="invalid-feedback"><?= view_error($data , 'image' , ' نام تصویر باید بین 5 تا 25 کاراکتر باشد و اندازه هم کمتر از 100 کیلوبایت و بیشتر از 0.5 کیلوبایت باشد! '); ?></span>                           
                     </div>
+                    <input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
 
                     <button name="send" type="submit" class="btn btn-primary"> اضافه کردن پست </button>
                 </form>

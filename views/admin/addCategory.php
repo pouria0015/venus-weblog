@@ -21,6 +21,8 @@ view('admin/inc/header');
     <input type="text" name="category" class="form-control <?= add_class_error($data , 'category'); ?>" id="cat" placeholder="دسته بندی" required>
     <span class="invalid-feedback"><?= view_error($data , 'category' , ' نام وارد شده نباید بیشتر از ۵۰ کاراکتر و کمتر از ۲ کاراکتر باشد! '); ?></span>
 </div>
+<input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
+
   <button type="submit" class="btn btn-primary mb-2">ثبت دسته بندی</button>
 </form>
 

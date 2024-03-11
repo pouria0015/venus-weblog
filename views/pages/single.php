@@ -130,6 +130,7 @@
                              CKEDITOR.replace( 'editor' );
                         </script>
         
+        <input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
 
                         <!-- Submit button -->
                         <input type="submit" class="btn btn-primary btn-block mb-4" value="ارسال نظر">

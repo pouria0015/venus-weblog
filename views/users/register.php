@@ -43,6 +43,7 @@ view("inc/header");
                             <span class="invalid-feedback"><?= isset($data['errors']['name']) ? view_error($data , 'name', " پسوند پروفایل باید png باشد ") : "" ?></span>
                             <span class="invalid-feedback"><?= isset($data['errors']['size']) ? view_error($data , 'size' , " حجم فایل باید کمتر از ۹ کیلوبایت و بیشتر از نیم کیلوبایت باشد ") : "" ?></span>
                         </div>
+                            <input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
 
                             <button class="btn btn-primary" type="submit">ثبت نام</button>
                         

@@ -32,7 +32,7 @@ view("inc/header");
                         <input name="first_name" type="text" id="first_name" class="form-control <?= add_class_error($data['errors'], 'first_name'); ?>" value="<?= (isset($data['userData']['first_name'])) ? $data['userData']['first_name'] : '' ?>" required>
                         <span class="invalid-feedback"><?= view_error($data['errors'] , 'first_name', " نام خود را به درستی وارد کنید نام باید  بین 3 تا15 کاراکتر باشد ") ?></span>
                     </div>
-
+                    <input type="hidden" name="csrf_token" value="<?= setCsrfToken() ?>">
                     <button name="login" type="submit" class="btn btn-primary"> ویرایش اطلاعات </button>
                     <a class="btn btn-danger m-1" href="<?= url_view_builder((isset($data['userData']['id'])) ? "users/deleteUser/" . $data['userData']['id'] : '') ?>"> حذف حساب کاربری </a>
 
