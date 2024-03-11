@@ -15,6 +15,12 @@ function back()
     redirect($http_referer);
 }
 
+function backUrl()
+{
+    return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+
+}
+
 function asset($src)
 {
     return URLROOT . 'public/' . trim($src, "/ ");
