@@ -5,7 +5,18 @@ You can see the front-end format of this project on the page below!
 [Template-project](https://github.com/pouria0015/Venus-Web-Template)
 
 
-### project features
+### Configuration
+
+First, go to the following path and in front of RewriteBase, edit the address value based on your website
+```
+./public/.htaccess
+```
+And after that, proceed to change things like the website address, website name, database related items, etc. in the following path.
+```
+./config/config.php
+```
+#
+### Project Features
 :pushpin: Has an admin panel
 
 :pushpin: Edit user account
@@ -30,3 +41,6 @@ You can see some pictures of the project:
 ![image 1](./public/img/readme/1.png)
 ![image 2](./public/img/readme/2.png)
 ![image 3](./public/img/readme/3.png)
+
+
+
